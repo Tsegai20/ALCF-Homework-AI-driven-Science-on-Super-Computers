@@ -1,0 +1,1411 @@
+Microsoft Windows [Version 10.0.22631.4317]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\toy20>ssh tsegai@sophia.alcf.anl.gov
+(tsegai@sophia.alcf.anl.gov) ---------------------------------------------------------------------------
+                            Notice to Users
+
+This is a Federal computer system and is the property of the United States
+Government. It is for authorized use only. Users (authorized or unauthorized)
+have no explicit or implicit expectation of privacy.
+
+Any or all uses of this system and all files on this system may be intercepted,
+monitored, recorded, copied, audited, inspected, and disclosed to authorized
+site, Department of Energy, and law enforcement personnel, as well as
+authorized officials of other agencies, both domestic and foreign. By using
+this system, the user consents to such interception, monitoring, recording,
+copying, auditing, inspection, and disclosure at the discretion of authorized
+site or Department of Energy personnel.
+
+Unauthorized or improper use of this system may result in administrative
+disciplinary action and civil and criminal penalties. By continuing to use
+this system you indicate your awareness of and consent to these terms and
+conditions of use. LOG OFF IMMEDIATELY if you do not agree to the conditions
+stated in this warning.
+
+----------------------------------------------------------------------------
+
+Password:
+Last login: Wed Nov  6 02:05:17 2024 from c-73-118-6-61.hsd1.fl.comcast.net
+[tsegai@sophia-login-02 ~]$ qsub -A ALCFAITP -q by-node -l select=1 -l walltime=01:00:00,filesystems=eagle:home -I
+qsub: waiting for job 36329.sophia-pbs-01.lab.alcf.anl.gov to start
+qsub: job 36329.sophia-pbs-01.lab.alcf.anl.gov ready
+
+[tsegai@sophia-gpu-19 ~]$ export HTTP_PROXY="http://proxy.alcf.anl.gov:3128"
+export HTTPS_PROXY="http://proxy.alcf.anl.gov:3128"
+export http_proxy="http://proxy.alcf.anl.gov:3128"
+export https_proxy="http://proxy.alcf.anl.gov:3128"
+export ftp_proxy="http://proxy.alcf.anl.gov:3128"
+[tsegai@sophia-gpu-19 ~]$ git clone https://github.com/saforem2/wordplay
+cd wordplay
+fatal: destination path 'wordplay' already exists and is not an empty directory.
+[tsegai@sophia-gpu-19 wordplay]$ git clone https://github.com/saforem2/ezpz deps/ezpz
+fatal: destination path 'deps/ezpz' already exists and is not an empty directory.
+[tsegai@sophia-gpu-19 wordplay]$ export PBS_O_WORKDIR=$(pwd) && source deps/ezpz/src/ezpz/bin/utils.sh
+ezpz_setup_python
+ezpz_setup_job
+Using WORKING_DIR: /home/tsegai/wordplay
+No conda_prefix OR virtual_env found in environment...
+Setting up conda...
+Found conda at: /soft/applications/conda/2024-08-08/mconda3
+No VIRTUAL_ENV found in environment!
+    - Trying to setup from /soft/applications/conda/2024-08-08/mconda3
+    - Using VENV_DIR=/home/tsegai/wordplay/venvs/2024-08-08
+    - Found existing venv, activating from /home/tsegai/wordplay/venvs/2024-08-08
+[python] Using /home/tsegai/wordplay/venvs/2024-08-08/bin/python3
+
+[🍋 ezpz/bin/utils.sh]
+    • USER=tsegai
+    • MACHINE=sophia
+    • HOST=sophia-gpu-19
+    • TSTAMP=2024-11-07-025120
+
+[ezpz_setup_host_pbs]
+    • Using hostfile: /var/spool/pbs/aux/36329.sophia-pbs-01.lab.alcf.anl.gov
+    • Found in environment:
+[HOSTS]
+    • [host:0] - sophia-gpu-19.lab.alcf.anl.gov
+
+[DIST INFO]
+    • NGPUS=8
+    • NHOSTS=1
+    • NGPU_PER_HOST=8
+    • HOSTFILE=/var/spool/pbs/aux/36329.sophia-pbs-01.lab.alcf.anl.gov
+    • DIST_LAUNCH=mpiexec --verbose --envall -n 8 -ppn 8 --hostfile /var/spool/pbs/aux/36329.sophia-pbs-01.lab.alcf.anl.gov --cpu-bind depth -d 16
+
+[LAUNCH]:
+    • To launch across all available GPUs, use: launch
+
+      launch = mpiexec --verbose --envall -n 8 -ppn 8 --hostfile /var/spool/pbs/aux/36329.sophia-pbs-01.lab.alcf.anl.gov --cpu-bind depth -d 16
+
+(2024-08-08) (2024-08-08/base) [tsegai@sophia-gpu-19 wordplay]$ python3 -m pip install -e deps/ezpz --require-virtualenv
+python3 -m pip install -e . --require-virtualenv
+Obtaining file:///home/tsegai/wordplay/deps/ezpz
+  Installing build dependencies ... done
+  Checking if build backend supports build_editable ... done
+  Getting requirements to build editable ... done
+  Installing backend dependencies ... done
+  Preparing editable metadata (pyproject.toml) ... done
+Collecting ambivalent@ git+https://github.com/saforem2/ambivalent (from ezpz==0.2)
+  Cloning https://github.com/saforem2/ambivalent to /var/tmp/pbs.36329.sophia-pbs-01.lab.alcf.anl.gov/pip-install-hfov7y2g/ambivalent_e013c97805e3493dbf01c7fad6b0fa53
+  Running command git clone --filter=blob:none --quiet https://github.com/saforem2/ambivalent /var/tmp/pbs.36329.sophia-pbs-01.lab.alcf.anl.gov/pip-install-hfov7y2g/ambivalent_e013c97805e3493dbf01c7fad6b0fa53
+  Resolved https://github.com/saforem2/ambivalent to commit eac43ada80b6d4b2f71bf45cee9329993f622e87
+  Installing build dependencies ... done
+  Getting requirements to build wheel ... done
+  Preparing metadata (pyproject.toml) ... done
+Requirement already satisfied: h5py in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from ezpz==0.2) (3.11.0)
+Requirement already satisfied: hydra-colorlog in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from ezpz==0.2) (1.2.0)
+Requirement already satisfied: hydra-core in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from ezpz==0.2) (1.3.2)
+Requirement already satisfied: ipython in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from ezpz==0.2) (8.26.0)
+Requirement already satisfied: jax in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from ezpz==0.2) (0.4.31)
+Requirement already satisfied: jaxlib in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from ezpz==0.2) (0.4.31)
+Requirement already satisfied: jaxtyping in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from ezpz==0.2) (0.2.33)
+Requirement already satisfied: joblib in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from ezpz==0.2) (1.4.2)
+Requirement already satisfied: ml-dtypes in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from ezpz==0.2) (0.4.0)
+Requirement already satisfied: mpi4py in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from ezpz==0.2) (4.0.0)
+Requirement already satisfied: omegaconf in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from ezpz==0.2) (2.3.0)
+Requirement already satisfied: plotext in ./venvs/2024-08-08/lib/python3.11/site-packages (from ezpz==0.2) (5.3.2)
+Requirement already satisfied: pyinstrument in ./venvs/2024-08-08/lib/python3.11/site-packages (from ezpz==0.2) (5.0.0)
+Requirement already satisfied: rich in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from ezpz==0.2) (13.7.1)
+Requirement already satisfied: seaborn in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from ezpz==0.2) (0.13.2)
+Requirement already satisfied: sentencepiece in ./venvs/2024-08-08/lib/python3.11/site-packages (from ezpz==0.2) (0.2.0)
+Requirement already satisfied: sh in ./venvs/2024-08-08/lib/python3.11/site-packages (from ezpz==0.2) (2.1.0)
+Requirement already satisfied: tensorboard in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from ezpz==0.2) (2.17.1)
+Requirement already satisfied: torch in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from ezpz==0.2) (2.4.0)
+Requirement already satisfied: tqdm in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from ezpz==0.2) (4.66.4)
+Requirement already satisfied: wandb in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from ezpz==0.2) (0.17.6)
+Requirement already satisfied: xarray in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from ezpz==0.2) (2024.7.0)
+Requirement already satisfied: colormaps in ./venvs/2024-08-08/lib/python3.11/site-packages (from ambivalent@ git+https://github.com/saforem2/ambivalent->ezpz==0.2) (0.4.2)
+Requirement already satisfied: matplotlib in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from ambivalent@ git+https://github.com/saforem2/ambivalent->ezpz==0.2) (3.9.2)
+Requirement already satisfied: requests in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from ambivalent@ git+https://github.com/saforem2/ambivalent->ezpz==0.2) (2.32.3)
+Requirement already satisfied: numpy>=1.17.3 in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from h5py->ezpz==0.2) (1.26.4)
+Requirement already satisfied: colorlog in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from hydra-colorlog->ezpz==0.2) (6.8.2)
+Requirement already satisfied: antlr4-python3-runtime==4.9.* in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from hydra-core->ezpz==0.2) (4.9.3)
+Requirement already satisfied: packaging in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from hydra-core->ezpz==0.2) (24.1)
+Requirement already satisfied: PyYAML>=5.1.0 in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from omegaconf->ezpz==0.2) (6.0.2)
+Requirement already satisfied: decorator in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from ipython->ezpz==0.2) (5.1.1)
+Requirement already satisfied: jedi>=0.16 in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from ipython->ezpz==0.2) (0.19.1)
+Requirement already satisfied: matplotlib-inline in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from ipython->ezpz==0.2) (0.1.7)
+Requirement already satisfied: prompt-toolkit<3.1.0,>=3.0.41 in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from ipython->ezpz==0.2) (3.0.47)
+Requirement already satisfied: pygments>=2.4.0 in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from ipython->ezpz==0.2) (2.18.0)
+Requirement already satisfied: stack-data in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from ipython->ezpz==0.2) (0.6.3)
+Requirement already satisfied: traitlets>=5.13.0 in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from ipython->ezpz==0.2) (5.14.3)
+Requirement already satisfied: typing-extensions>=4.6 in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from ipython->ezpz==0.2) (4.12.2)
+Requirement already satisfied: pexpect>4.3 in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from ipython->ezpz==0.2) (4.9.0)
+Requirement already satisfied: opt-einsum in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from jax->ezpz==0.2) (3.3.0)
+Requirement already satisfied: scipy>=1.10 in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from jax->ezpz==0.2) (1.14.0)
+Requirement already satisfied: typeguard==2.13.3 in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from jaxtyping->ezpz==0.2) (2.13.3)
+Requirement already satisfied: markdown-it-py>=2.2.0 in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from rich->ezpz==0.2) (3.0.0)
+Requirement already satisfied: pandas>=1.2 in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from seaborn->ezpz==0.2) (2.2.2)
+Requirement already satisfied: absl-py>=0.4 in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from tensorboard->ezpz==0.2) (2.1.0)
+Requirement already satisfied: grpcio>=1.48.2 in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from tensorboard->ezpz==0.2) (1.65.4)
+Requirement already satisfied: markdown>=2.6.8 in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from tensorboard->ezpz==0.2) (3.6)
+Requirement already satisfied: protobuf!=4.24.0,>=3.19.6 in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from tensorboard->ezpz==0.2) (3.20.3)
+Requirement already satisfied: setuptools>=41.0.0 in ./venvs/2024-08-08/lib/python3.11/site-packages (from tensorboard->ezpz==0.2) (65.5.0)
+Requirement already satisfied: six>1.9 in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from tensorboard->ezpz==0.2) (1.16.0)
+Requirement already satisfied: tensorboard-data-server<0.8.0,>=0.7.0 in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from tensorboard->ezpz==0.2) (0.7.2)
+Requirement already satisfied: werkzeug>=1.0.1 in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from tensorboard->ezpz==0.2) (3.0.3)
+Requirement already satisfied: filelock in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from torch->ezpz==0.2) (3.13.1)
+Requirement already satisfied: sympy in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from torch->ezpz==0.2) (1.13.2)
+Requirement already satisfied: networkx in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from torch->ezpz==0.2) (3.3)
+Requirement already satisfied: jinja2 in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from torch->ezpz==0.2) (3.1.4)
+Requirement already satisfied: fsspec in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from torch->ezpz==0.2) (2024.6.1)
+Requirement already satisfied: click!=8.0.0,>=7.1 in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from wandb->ezpz==0.2) (8.1.7)
+Requirement already satisfied: docker-pycreds>=0.4.0 in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from wandb->ezpz==0.2) (0.4.0)
+Requirement already satisfied: gitpython!=3.1.29,>=1.0.0 in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from wandb->ezpz==0.2) (3.1.43)
+Requirement already satisfied: platformdirs in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from wandb->ezpz==0.2) (3.10.0)
+Requirement already satisfied: psutil>=5.0.0 in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from wandb->ezpz==0.2) (6.0.0)
+Requirement already satisfied: sentry-sdk>=1.0.0 in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from wandb->ezpz==0.2) (2.13.0)
+Requirement already satisfied: setproctitle in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from wandb->ezpz==0.2) (1.3.3)
+Requirement already satisfied: gitdb<5,>=4.0.1 in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from gitpython!=3.1.29,>=1.0.0->wandb->ezpz==0.2) (4.0.11)
+Requirement already satisfied: parso<0.9.0,>=0.8.3 in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from jedi>=0.16->ipython->ezpz==0.2) (0.8.4)
+Requirement already satisfied: mdurl~=0.1 in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from markdown-it-py>=2.2.0->rich->ezpz==0.2) (0.1.2)
+Requirement already satisfied: contourpy>=1.0.1 in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from matplotlib->ambivalent@ git+https://github.com/saforem2/ambivalent->ezpz==0.2) (1.2.1)
+Requirement already satisfied: cycler>=0.10 in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from matplotlib->ambivalent@ git+https://github.com/saforem2/ambivalent->ezpz==0.2) (0.12.1)
+Requirement already satisfied: fonttools>=4.22.0 in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from matplotlib->ambivalent@ git+https://github.com/saforem2/ambivalent->ezpz==0.2) (4.53.1)
+Requirement already satisfied: kiwisolver>=1.3.1 in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from matplotlib->ambivalent@ git+https://github.com/saforem2/ambivalent->ezpz==0.2) (1.4.5)
+Requirement already satisfied: pillow>=8 in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from matplotlib->ambivalent@ git+https://github.com/saforem2/ambivalent->ezpz==0.2) (10.4.0)
+Requirement already satisfied: pyparsing>=2.3.1 in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from matplotlib->ambivalent@ git+https://github.com/saforem2/ambivalent->ezpz==0.2) (3.1.2)
+Requirement already satisfied: python-dateutil>=2.7 in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from matplotlib->ambivalent@ git+https://github.com/saforem2/ambivalent->ezpz==0.2) (2.9.0.post0)
+Requirement already satisfied: pytz>=2020.1 in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from pandas>=1.2->seaborn->ezpz==0.2) (2024.1)
+Requirement already satisfied: tzdata>=2022.7 in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from pandas>=1.2->seaborn->ezpz==0.2) (2024.1)
+Requirement already satisfied: ptyprocess>=0.5 in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from pexpect>4.3->ipython->ezpz==0.2) (0.7.0)
+Requirement already satisfied: wcwidth in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from prompt-toolkit<3.1.0,>=3.0.41->ipython->ezpz==0.2) (0.2.13)
+Requirement already satisfied: charset-normalizer<4,>=2 in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from requests->ambivalent@ git+https://github.com/saforem2/ambivalent->ezpz==0.2) (2.0.4)
+Requirement already satisfied: idna<4,>=2.5 in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from requests->ambivalent@ git+https://github.com/saforem2/ambivalent->ezpz==0.2) (3.7)
+Requirement already satisfied: urllib3<3,>=1.21.1 in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from requests->ambivalent@ git+https://github.com/saforem2/ambivalent->ezpz==0.2) (2.2.2)
+Requirement already satisfied: certifi>=2017.4.17 in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from requests->ambivalent@ git+https://github.com/saforem2/ambivalent->ezpz==0.2) (2024.7.4)
+Requirement already satisfied: MarkupSafe>=2.1.1 in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from werkzeug>=1.0.1->tensorboard->ezpz==0.2) (2.1.3)
+Requirement already satisfied: executing>=1.2.0 in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from stack-data->ipython->ezpz==0.2) (2.0.1)
+Requirement already satisfied: asttokens>=2.1.0 in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from stack-data->ipython->ezpz==0.2) (2.4.1)
+Requirement already satisfied: pure-eval in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from stack-data->ipython->ezpz==0.2) (0.2.3)
+Requirement already satisfied: mpmath<1.4,>=1.1.0 in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from sympy->torch->ezpz==0.2) (1.3.0)
+Requirement already satisfied: smmap<6,>=3.0.1 in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from gitdb<5,>=4.0.1->gitpython!=3.1.29,>=1.0.0->wandb->ezpz==0.2) (5.0.1)
+Building wheels for collected packages: ezpz
+  Building editable for ezpz (pyproject.toml) ... done
+  Created wheel for ezpz: filename=ezpz-0.2-py3-none-any.whl size=10069 sha256=cb942df95c0aedb14f9ff3d1abf13b711edba92c916bc5b80d76d1cd976b31c6
+  Stored in directory: /var/tmp/pbs.36329.sophia-pbs-01.lab.alcf.anl.gov/pip-ephem-wheel-cache-182q8b_q/wheels/91/8d/5c/a76f3ef3c092bb35e7b8a13e0d9bd454f84274a4111187abd3
+Successfully built ezpz
+Installing collected packages: ezpz
+  Attempting uninstall: ezpz
+    Found existing installation: ezpz 0.2
+    Uninstalling ezpz-0.2:
+      Successfully uninstalled ezpz-0.2
+Successfully installed ezpz-0.2
+
+[notice] A new release of pip is available: 24.0 -> 24.3.1
+[notice] To update, run: pip install --upgrade pip
+Obtaining file:///home/tsegai/wordplay
+  Installing build dependencies ... done
+  Checking if build backend supports build_editable ... done
+  Getting requirements to build editable ... done
+  Installing backend dependencies ... done
+  Preparing editable metadata (pyproject.toml) ... done
+Collecting ambivalent@ git+https://github.com/saforem2/ambivalent (from wordplay==0.0.1)
+  Cloning https://github.com/saforem2/ambivalent to /var/tmp/pbs.36329.sophia-pbs-01.lab.alcf.anl.gov/pip-install-hxtcrw5l/ambivalent_1280de40bc4a4cafaff39b7bcb17787b
+  Running command git clone --filter=blob:none --quiet https://github.com/saforem2/ambivalent /var/tmp/pbs.36329.sophia-pbs-01.lab.alcf.anl.gov/pip-install-hxtcrw5l/ambivalent_1280de40bc4a4cafaff39b7bcb17787b
+  Resolved https://github.com/saforem2/ambivalent to commit eac43ada80b6d4b2f71bf45cee9329993f622e87
+  Installing build dependencies ... done
+  Getting requirements to build wheel ... done
+  Preparing metadata (pyproject.toml) ... done
+Collecting ezpz@ git+https://github.com/saforem2/ezpz (from wordplay==0.0.1)
+  Cloning https://github.com/saforem2/ezpz to /var/tmp/pbs.36329.sophia-pbs-01.lab.alcf.anl.gov/pip-install-hxtcrw5l/ezpz_8f5bab1a9f744eb7b5ea01ee92af29bb
+  Running command git clone --filter=blob:none --quiet https://github.com/saforem2/ezpz /var/tmp/pbs.36329.sophia-pbs-01.lab.alcf.anl.gov/pip-install-hxtcrw5l/ezpz_8f5bab1a9f744eb7b5ea01ee92af29bb
+  Resolved https://github.com/saforem2/ezpz to commit d5a08dfcecfb00010e731ceb46d18fb2fa4f874c
+  Installing build dependencies ... done
+  Getting requirements to build wheel ... done
+  Preparing metadata (pyproject.toml) ... done
+Requirement already satisfied: datasets in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from wordplay==0.0.1) (2.21.0)
+Requirement already satisfied: hydra-colorlog in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from wordplay==0.0.1) (1.2.0)
+Requirement already satisfied: hydra-core in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from wordplay==0.0.1) (1.3.2)
+Requirement already satisfied: joblib in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from wordplay==0.0.1) (1.4.2)
+Requirement already satisfied: mpi4py in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from wordplay==0.0.1) (4.0.0)
+Requirement already satisfied: rich in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from wordplay==0.0.1) (13.7.1)
+Requirement already satisfied: tiktoken in ./venvs/2024-08-08/lib/python3.11/site-packages (from wordplay==0.0.1) (0.8.0)
+Requirement already satisfied: torch in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from wordplay==0.0.1) (2.4.0)
+Requirement already satisfied: tqdm in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from wordplay==0.0.1) (4.66.4)
+Requirement already satisfied: transformers in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from wordplay==0.0.1) (4.44.0)
+Requirement already satisfied: wandb in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from wordplay==0.0.1) (0.17.6)
+Requirement already satisfied: colormaps in ./venvs/2024-08-08/lib/python3.11/site-packages (from ambivalent@ git+https://github.com/saforem2/ambivalent->wordplay==0.0.1) (0.4.2)
+Requirement already satisfied: matplotlib in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from ambivalent@ git+https://github.com/saforem2/ambivalent->wordplay==0.0.1) (3.9.2)
+Requirement already satisfied: requests in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from ambivalent@ git+https://github.com/saforem2/ambivalent->wordplay==0.0.1) (2.32.3)
+Requirement already satisfied: seaborn in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from ambivalent@ git+https://github.com/saforem2/ambivalent->wordplay==0.0.1) (0.13.2)
+Requirement already satisfied: filelock in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from datasets->wordplay==0.0.1) (3.13.1)
+Requirement already satisfied: numpy>=1.17 in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from datasets->wordplay==0.0.1) (1.26.4)
+Requirement already satisfied: pyarrow>=15.0.0 in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from datasets->wordplay==0.0.1) (17.0.0)
+Requirement already satisfied: dill<0.3.9,>=0.3.0 in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from datasets->wordplay==0.0.1) (0.3.8)
+Requirement already satisfied: pandas in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from datasets->wordplay==0.0.1) (2.2.2)
+Requirement already satisfied: xxhash in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from datasets->wordplay==0.0.1) (3.4.1)
+Requirement already satisfied: multiprocess in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from datasets->wordplay==0.0.1) (0.70.16)
+Requirement already satisfied: fsspec<=2024.6.1,>=2023.1.0 in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from fsspec[http]<=2024.6.1,>=2023.1.0->datasets->wordplay==0.0.1) (2024.6.1)
+Requirement already satisfied: aiohttp in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from datasets->wordplay==0.0.1) (3.10.3)
+Requirement already satisfied: huggingface-hub>=0.21.2 in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from datasets->wordplay==0.0.1) (0.24.5)
+Requirement already satisfied: packaging in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from datasets->wordplay==0.0.1) (24.1)
+Requirement already satisfied: pyyaml>=5.1 in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from datasets->wordplay==0.0.1) (6.0.2)
+Requirement already satisfied: h5py in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from ezpz@ git+https://github.com/saforem2/ezpz->wordplay==0.0.1) (3.11.0)
+Requirement already satisfied: ipython in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from ezpz@ git+https://github.com/saforem2/ezpz->wordplay==0.0.1) (8.26.0)
+Requirement already satisfied: jax in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from ezpz@ git+https://github.com/saforem2/ezpz->wordplay==0.0.1) (0.4.31)
+Requirement already satisfied: jaxlib in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from ezpz@ git+https://github.com/saforem2/ezpz->wordplay==0.0.1) (0.4.31)
+Requirement already satisfied: jaxtyping in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from ezpz@ git+https://github.com/saforem2/ezpz->wordplay==0.0.1) (0.2.33)
+Requirement already satisfied: ml-dtypes in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from ezpz@ git+https://github.com/saforem2/ezpz->wordplay==0.0.1) (0.4.0)
+Requirement already satisfied: omegaconf in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from ezpz@ git+https://github.com/saforem2/ezpz->wordplay==0.0.1) (2.3.0)
+Requirement already satisfied: plotext in ./venvs/2024-08-08/lib/python3.11/site-packages (from ezpz@ git+https://github.com/saforem2/ezpz->wordplay==0.0.1) (5.3.2)
+Requirement already satisfied: pyinstrument in ./venvs/2024-08-08/lib/python3.11/site-packages (from ezpz@ git+https://github.com/saforem2/ezpz->wordplay==0.0.1) (5.0.0)
+Requirement already satisfied: sentencepiece in ./venvs/2024-08-08/lib/python3.11/site-packages (from ezpz@ git+https://github.com/saforem2/ezpz->wordplay==0.0.1) (0.2.0)
+Requirement already satisfied: sh in ./venvs/2024-08-08/lib/python3.11/site-packages (from ezpz@ git+https://github.com/saforem2/ezpz->wordplay==0.0.1) (2.1.0)
+Requirement already satisfied: tensorboard in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from ezpz@ git+https://github.com/saforem2/ezpz->wordplay==0.0.1) (2.17.1)
+Requirement already satisfied: xarray in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from ezpz@ git+https://github.com/saforem2/ezpz->wordplay==0.0.1) (2024.7.0)
+Requirement already satisfied: colorlog in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from hydra-colorlog->wordplay==0.0.1) (6.8.2)
+Requirement already satisfied: antlr4-python3-runtime==4.9.* in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from hydra-core->wordplay==0.0.1) (4.9.3)
+Requirement already satisfied: markdown-it-py>=2.2.0 in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from rich->wordplay==0.0.1) (3.0.0)
+Requirement already satisfied: pygments<3.0.0,>=2.13.0 in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from rich->wordplay==0.0.1) (2.18.0)
+Requirement already satisfied: regex>=2022.1.18 in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from tiktoken->wordplay==0.0.1) (2024.7.24)
+Requirement already satisfied: typing-extensions>=4.8.0 in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from torch->wordplay==0.0.1) (4.12.2)
+Requirement already satisfied: sympy in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from torch->wordplay==0.0.1) (1.13.2)
+Requirement already satisfied: networkx in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from torch->wordplay==0.0.1) (3.3)
+Requirement already satisfied: jinja2 in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from torch->wordplay==0.0.1) (3.1.4)
+Requirement already satisfied: safetensors>=0.4.1 in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from transformers->wordplay==0.0.1) (0.4.4)
+Requirement already satisfied: tokenizers<0.20,>=0.19 in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from transformers->wordplay==0.0.1) (0.19.1)
+Requirement already satisfied: click!=8.0.0,>=7.1 in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from wandb->wordplay==0.0.1) (8.1.7)
+Requirement already satisfied: docker-pycreds>=0.4.0 in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from wandb->wordplay==0.0.1) (0.4.0)
+Requirement already satisfied: gitpython!=3.1.29,>=1.0.0 in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from wandb->wordplay==0.0.1) (3.1.43)
+Requirement already satisfied: platformdirs in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from wandb->wordplay==0.0.1) (3.10.0)
+Requirement already satisfied: protobuf!=4.21.0,<6,>=3.19.0 in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from wandb->wordplay==0.0.1) (3.20.3)
+Requirement already satisfied: psutil>=5.0.0 in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from wandb->wordplay==0.0.1) (6.0.0)
+Requirement already satisfied: sentry-sdk>=1.0.0 in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from wandb->wordplay==0.0.1) (2.13.0)
+Requirement already satisfied: setproctitle in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from wandb->wordplay==0.0.1) (1.3.3)
+Requirement already satisfied: setuptools in ./venvs/2024-08-08/lib/python3.11/site-packages (from wandb->wordplay==0.0.1) (65.5.0)
+Requirement already satisfied: six>=1.4.0 in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from docker-pycreds>=0.4.0->wandb->wordplay==0.0.1) (1.16.0)
+Requirement already satisfied: aiohappyeyeballs>=2.3.0 in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from aiohttp->datasets->wordplay==0.0.1) (2.3.5)
+Requirement already satisfied: aiosignal>=1.1.2 in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from aiohttp->datasets->wordplay==0.0.1) (1.3.1)
+Requirement already satisfied: attrs>=17.3.0 in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from aiohttp->datasets->wordplay==0.0.1) (23.1.0)
+Requirement already satisfied: frozenlist>=1.1.1 in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from aiohttp->datasets->wordplay==0.0.1) (1.4.1)
+Requirement already satisfied: multidict<7.0,>=4.5 in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from aiohttp->datasets->wordplay==0.0.1) (6.0.5)
+Requirement already satisfied: yarl<2.0,>=1.0 in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from aiohttp->datasets->wordplay==0.0.1) (1.9.4)
+Requirement already satisfied: gitdb<5,>=4.0.1 in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from gitpython!=3.1.29,>=1.0.0->wandb->wordplay==0.0.1) (4.0.11)
+Requirement already satisfied: mdurl~=0.1 in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from markdown-it-py>=2.2.0->rich->wordplay==0.0.1) (0.1.2)
+Requirement already satisfied: charset-normalizer<4,>=2 in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from requests->ambivalent@ git+https://github.com/saforem2/ambivalent->wordplay==0.0.1) (2.0.4)
+Requirement already satisfied: idna<4,>=2.5 in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from requests->ambivalent@ git+https://github.com/saforem2/ambivalent->wordplay==0.0.1) (3.7)
+Requirement already satisfied: urllib3<3,>=1.21.1 in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from requests->ambivalent@ git+https://github.com/saforem2/ambivalent->wordplay==0.0.1) (2.2.2)
+Requirement already satisfied: certifi>=2017.4.17 in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from requests->ambivalent@ git+https://github.com/saforem2/ambivalent->wordplay==0.0.1) (2024.7.4)
+Requirement already satisfied: decorator in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from ipython->ezpz@ git+https://github.com/saforem2/ezpz->wordplay==0.0.1) (5.1.1)
+Requirement already satisfied: jedi>=0.16 in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from ipython->ezpz@ git+https://github.com/saforem2/ezpz->wordplay==0.0.1) (0.19.1)
+Requirement already satisfied: matplotlib-inline in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from ipython->ezpz@ git+https://github.com/saforem2/ezpz->wordplay==0.0.1) (0.1.7)
+Requirement already satisfied: prompt-toolkit<3.1.0,>=3.0.41 in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from ipython->ezpz@ git+https://github.com/saforem2/ezpz->wordplay==0.0.1) (3.0.47)
+Requirement already satisfied: stack-data in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from ipython->ezpz@ git+https://github.com/saforem2/ezpz->wordplay==0.0.1) (0.6.3)
+Requirement already satisfied: traitlets>=5.13.0 in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from ipython->ezpz@ git+https://github.com/saforem2/ezpz->wordplay==0.0.1) (5.14.3)
+Requirement already satisfied: pexpect>4.3 in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from ipython->ezpz@ git+https://github.com/saforem2/ezpz->wordplay==0.0.1) (4.9.0)
+Requirement already satisfied: opt-einsum in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from jax->ezpz@ git+https://github.com/saforem2/ezpz->wordplay==0.0.1) (3.3.0)
+Requirement already satisfied: scipy>=1.10 in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from jax->ezpz@ git+https://github.com/saforem2/ezpz->wordplay==0.0.1) (1.14.0)
+Requirement already satisfied: typeguard==2.13.3 in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from jaxtyping->ezpz@ git+https://github.com/saforem2/ezpz->wordplay==0.0.1) (2.13.3)
+Requirement already satisfied: MarkupSafe>=2.0 in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from jinja2->torch->wordplay==0.0.1) (2.1.3)
+Requirement already satisfied: contourpy>=1.0.1 in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from matplotlib->ambivalent@ git+https://github.com/saforem2/ambivalent->wordplay==0.0.1) (1.2.1)
+Requirement already satisfied: cycler>=0.10 in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from matplotlib->ambivalent@ git+https://github.com/saforem2/ambivalent->wordplay==0.0.1) (0.12.1)
+Requirement already satisfied: fonttools>=4.22.0 in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from matplotlib->ambivalent@ git+https://github.com/saforem2/ambivalent->wordplay==0.0.1) (4.53.1)
+Requirement already satisfied: kiwisolver>=1.3.1 in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from matplotlib->ambivalent@ git+https://github.com/saforem2/ambivalent->wordplay==0.0.1) (1.4.5)
+Requirement already satisfied: pillow>=8 in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from matplotlib->ambivalent@ git+https://github.com/saforem2/ambivalent->wordplay==0.0.1) (10.4.0)
+Requirement already satisfied: pyparsing>=2.3.1 in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from matplotlib->ambivalent@ git+https://github.com/saforem2/ambivalent->wordplay==0.0.1) (3.1.2)
+Requirement already satisfied: python-dateutil>=2.7 in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from matplotlib->ambivalent@ git+https://github.com/saforem2/ambivalent->wordplay==0.0.1) (2.9.0.post0)
+Requirement already satisfied: pytz>=2020.1 in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from pandas->datasets->wordplay==0.0.1) (2024.1)
+Requirement already satisfied: tzdata>=2022.7 in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from pandas->datasets->wordplay==0.0.1) (2024.1)
+Requirement already satisfied: mpmath<1.4,>=1.1.0 in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from sympy->torch->wordplay==0.0.1) (1.3.0)
+Requirement already satisfied: absl-py>=0.4 in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from tensorboard->ezpz@ git+https://github.com/saforem2/ezpz->wordplay==0.0.1) (2.1.0)
+Requirement already satisfied: grpcio>=1.48.2 in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from tensorboard->ezpz@ git+https://github.com/saforem2/ezpz->wordplay==0.0.1) (1.65.4)
+Requirement already satisfied: markdown>=2.6.8 in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from tensorboard->ezpz@ git+https://github.com/saforem2/ezpz->wordplay==0.0.1) (3.6)
+Requirement already satisfied: tensorboard-data-server<0.8.0,>=0.7.0 in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from tensorboard->ezpz@ git+https://github.com/saforem2/ezpz->wordplay==0.0.1) (0.7.2)
+Requirement already satisfied: werkzeug>=1.0.1 in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from tensorboard->ezpz@ git+https://github.com/saforem2/ezpz->wordplay==0.0.1) (3.0.3)
+Requirement already satisfied: smmap<6,>=3.0.1 in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from gitdb<5,>=4.0.1->gitpython!=3.1.29,>=1.0.0->wandb->wordplay==0.0.1) (5.0.1)
+Requirement already satisfied: parso<0.9.0,>=0.8.3 in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from jedi>=0.16->ipython->ezpz@ git+https://github.com/saforem2/ezpz->wordplay==0.0.1) (0.8.4)
+Requirement already satisfied: ptyprocess>=0.5 in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from pexpect>4.3->ipython->ezpz@ git+https://github.com/saforem2/ezpz->wordplay==0.0.1) (0.7.0)
+Requirement already satisfied: wcwidth in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from prompt-toolkit<3.1.0,>=3.0.41->ipython->ezpz@ git+https://github.com/saforem2/ezpz->wordplay==0.0.1) (0.2.13)
+Requirement already satisfied: executing>=1.2.0 in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from stack-data->ipython->ezpz@ git+https://github.com/saforem2/ezpz->wordplay==0.0.1) (2.0.1)
+Requirement already satisfied: asttokens>=2.1.0 in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from stack-data->ipython->ezpz@ git+https://github.com/saforem2/ezpz->wordplay==0.0.1) (2.4.1)
+Requirement already satisfied: pure-eval in /soft/applications/conda/2024-08-08/mconda3/lib/python3.11/site-packages (from stack-data->ipython->ezpz@ git+https://github.com/saforem2/ezpz->wordplay==0.0.1) (0.2.3)
+Building wheels for collected packages: wordplay, ezpz
+  Building editable for wordplay (pyproject.toml) ... done
+  Created wheel for wordplay: filename=wordplay-0.0.1-py3-none-any.whl size=5000 sha256=ce5ff51c9e2b7c9f178d606a0428833b582756c599f4160486454b4e1a2caa6e
+  Stored in directory: /var/tmp/pbs.36329.sophia-pbs-01.lab.alcf.anl.gov/pip-ephem-wheel-cache-jnn54m2u/wheels/84/d3/3e/ef95c2596375d010a86cae41a2be1a4bfd8b595cf7363ff661
+  Building wheel for ezpz (pyproject.toml) ... done
+  Created wheel for ezpz: filename=ezpz-0.2-py3-none-any.whl size=115825 sha256=9e1956f5dd677e14de9cd9ce60adcb440e0643d5d530eb0c51a80579077e8ff2
+  Stored in directory: /var/tmp/pbs.36329.sophia-pbs-01.lab.alcf.anl.gov/pip-ephem-wheel-cache-jnn54m2u/wheels/b3/57/90/f3324177d75cbc607a034b5b8e66d5b3d35dcf087967430718
+Successfully built wordplay ezpz
+Installing collected packages: ezpz, wordplay
+  Attempting uninstall: ezpz
+    Found existing installation: ezpz 0.2
+    Uninstalling ezpz-0.2:
+      Successfully uninstalled ezpz-0.2
+  Attempting uninstall: wordplay
+    Found existing installation: wordplay 0.0.1
+    Uninstalling wordplay-0.0.1:
+      Successfully uninstalled wordplay-0.0.1
+Successfully installed ezpz-0.2 wordplay-0.0.1
+
+[notice] A new release of pip is available: 24.0 -> 24.3.1
+[notice] To update, run: pip install --upgrade pip
+(2024-08-08) (2024-08-08/base) [tsegai@sophia-gpu-19 wordplay]$ wandb login
+wandb: Currently logged in as: tsegai. Use `wandb login --relogin` to force relogin
+(2024-08-08) (2024-08-08/base) [tsegai@sophia-gpu-19 wordplay]$ mpirun -n "${NGPUS}" python3 -m ezpz.test_dist
+[LOG_CAT_ML] component basesmuma is not available but requested in hierarchy: basesmuma,basesmuma,ucx_p2p:basesmsocket,basesmuma,p2p
+[LOG_CAT_ML] ml_discover_hierarchy exited with error
+[LOG_CAT_ML] component basesmuma is not available but requested in hierarchy: basesmuma,basesmuma,ucx_p2p:basesmsocket,basesmuma,p2p
+[LOG_CAT_ML] ml_discover_hierarchy exited with error
+[LOG_CAT_ML] component basesmuma is not available but requested in hierarchy: basesmuma,basesmuma,ucx_p2p:basesmsocket,basesmuma,p2p
+[LOG_CAT_ML] ml_discover_hierarchy exited with error
+[LOG_CAT_ML] component basesmuma is not available but requested in hierarchy: basesmuma,basesmuma,ucx_p2p:basesmsocket,basesmuma,p2p
+[LOG_CAT_ML] ml_discover_hierarchy exited with error
+[LOG_CAT_ML] component basesmuma is not available but requested in hierarchy: basesmuma,basesmuma,ucx_p2p:basesmsocket,basesmuma,p2p
+[LOG_CAT_ML] ml_discover_hierarchy exited with error
+[LOG_CAT_ML] component basesmuma is not available but requested in hierarchy: basesmuma,basesmuma,ucx_p2p:basesmsocket,basesmuma,p2p
+[LOG_CAT_ML] ml_discover_hierarchy exited with error
+[LOG_CAT_ML] component basesmuma is not available but requested in hierarchy: basesmuma,basesmuma,ucx_p2p:basesmsocket,basesmuma,p2p
+[LOG_CAT_ML] ml_discover_hierarchy exited with error
+[LOG_CAT_ML] component basesmuma is not available but requested in hierarchy: basesmuma,basesmuma,ucx_p2p:basesmsocket,basesmuma,p2p
+[LOG_CAT_ML] ml_discover_hierarchy exited with error
+[2024-11-07 02:54:18.560870][INFO][dist.py:92] -
+
+[dist_info]:
+  • DEVICE=cuda
+  • DEVICE_ID=cuda:0
+  • DISTRIBUTED_BACKEND=nccl
+  • GPUS_PER_NODE=8
+  • HOSTS=['sophia-gpu-19.lab.alcf.anl.gov']
+  • HOSTFILE=/var/spool/pbs/aux/36329.sophia-pbs-01.lab.alcf.anl.gov
+  • HOSTNAME=sophia-gpu-19.lab.alcf.anl.gov
+  • LOCAL_RANK=0
+  • MACHINE=Sophia
+  • NUM_NODES=1
+  • NGPUS=8
+  • NGPUS_AVAILABLE=8
+  • NODE_ID=0
+  • RANK=0
+  • SCHEDULER=LOCAL
+  • WORLD_SIZE_TOTAL=8
+  • WORLD_SIZE_IN_USE=8
+  • LAUNCH_CMD=None
+
+
+[2024-11-07 02:54:18.565339][INFO][dist.py:728] - [0/8] Using device='cuda' with backend='DDP' + 'nccl' for distributed training.
+[2024-11-07 02:54:18.567567][INFO][dist.py:348] - [device='cuda'][rank=0/7][local_rank=0/7][node=0/0]
+[2024-11-07 02:54:18.568155][WARNING][dist.py:352] - Using [8 / 8] available "cuda" devices !!
+[2024-11-07 02:54:19.691572][INFO][dist.py:348] - [device='cuda'][rank=3/7][local_rank=3/7][node=0/0]
+[2024-11-07 02:54:19.694601][INFO][dist.py:348] - [device='cuda'][rank=7/7][local_rank=7/7][node=0/0]
+[2024-11-07 02:54:19.699345][INFO][dist.py:348] - [device='cuda'][rank=4/7][local_rank=4/7][node=0/0]
+[2024-11-07 02:54:19.718753][INFO][dist.py:348] - [device='cuda'][rank=5/7][local_rank=5/7][node=0/0]
+[2024-11-07 02:54:19.727502][INFO][dist.py:348] - [device='cuda'][rank=6/7][local_rank=6/7][node=0/0]
+[2024-11-07 02:54:19.744430][INFO][dist.py:348] - [device='cuda'][rank=1/7][local_rank=1/7][node=0/0]
+[2024-11-07 02:54:19.744772][INFO][dist.py:348] - [device='cuda'][rank=2/7][local_rank=2/7][node=0/0]
+[2024-11-07 02:54:21.863618][INFO][dist.py:882] - Setting up wandb from rank: 0
+[2024-11-07 02:54:21.864528][INFO][dist.py:883] - Using: WB PROJECT: ezpz.test_dist
+wandb: Currently logged in as: tsegai. Use `wandb login --relogin` to force relogin
+wandb: wandb version 0.18.6 is available!  To upgrade, please run:
+wandb:  $ pip install wandb --upgrade
+wandb: Tracking run with wandb version 0.17.6
+wandb: Run data is saved locally in /home/tsegai/wordplay/wandb/run-20241107_025423-4846onot
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run silver-armadillo-2
+wandb: ⭐️ View project at https://wandb.ai/tsegai/ezpz.test_dist
+wandb: 🚀 View run at https://wandb.ai/tsegai/ezpz.test_dist/runs/4846onot
+[2024-11-07 02:54:24.757914][INFO][dist.py:908] - W&B RUN: [silver-armadillo-2](https://wandb.ai/tsegai/ezpz.test_dist/runs/4846onot)
+[2024-11-07 02:54:24.762467][INFO][dist.py:304] - Updating wandb.run: silver-armadillo-2 config with "DIST_INFO"
+[2024-11-07 02:54:24.766172][INFO][dist.py:936] - Running on machine='Sophia'
+[2024-11-07 02:54:24.767330][INFO][dist.py:92] -
+
+[CONFIG]:
+  • warmup=0
+  • log_freq=1
+  • batch_size=64
+  • input_size=128
+  • output_size=128
+  • dtype=torch.float32
+  • device=cuda
+  • world_size=8
+  • train_iters=100
+
+
+[2024-11-07 02:54:24.858953][INFO][test_dist.py:147] - model=Network(
+  (layers): Sequential(
+    (0): Linear(in_features=128, out_features=1024, bias=True)
+    (1): Linear(in_features=1024, out_features=512, bias=True)
+    (2): Linear(in_features=512, out_features=256, bias=True)
+    (3): Linear(in_features=256, out_features=128, bias=True)
+    (4): Linear(in_features=128, out_features=128, bias=True)
+  )
+)
+[2024-11-07 02:54:31.723684][INFO][test_dist.py:228] - iter=1 dt=0.003 dtf=0.001 dtb=0.002 loss=2096.768 sps=20562.242
+[2024-11-07 02:54:31.728469][INFO][test_dist.py:228] - iter=2 dt=0.002 dtf=0.001 dtb=0.001 loss=1569.855 sps=32997.154
+[2024-11-07 02:54:31.732629][INFO][test_dist.py:228] - iter=3 dt=0.002 dtf=0.001 dtb=0.001 loss=1152.322 sps=33986.440
+[2024-11-07 02:54:31.736822][INFO][test_dist.py:228] - iter=4 dt=0.002 dtf=0.001 dtb=0.001 loss=942.043 sps=34700.182
+[2024-11-07 02:54:31.740926][INFO][test_dist.py:228] - iter=5 dt=0.002 dtf=0.000 dtb=0.001 loss=885.721 sps=34527.811
+[2024-11-07 02:54:31.745103][INFO][test_dist.py:228] - iter=6 dt=0.002 dtf=0.000 dtb=0.001 loss=794.497 sps=34542.737
+[2024-11-07 02:54:31.749212][INFO][test_dist.py:228] - iter=7 dt=0.002 dtf=0.001 dtb=0.001 loss=741.947 sps=34502.631
+[2024-11-07 02:54:31.753480][INFO][test_dist.py:228] - iter=8 dt=0.002 dtf=0.001 dtb=0.001 loss=729.410 sps=33954.450
+[2024-11-07 02:54:31.757595][INFO][test_dist.py:228] - iter=9 dt=0.002 dtf=0.001 dtb=0.001 loss=728.910 sps=34803.421
+[2024-11-07 02:54:31.761676][INFO][test_dist.py:228] - iter=10 dt=0.002 dtf=0.000 dtb=0.001 loss=715.512 sps=35825.615
+[2024-11-07 02:54:31.765709][INFO][test_dist.py:228] - iter=11 dt=0.002 dtf=0.000 dtb=0.001 loss=722.833 sps=36893.075
+[2024-11-07 02:54:31.769761][INFO][test_dist.py:228] - iter=12 dt=0.002 dtf=0.000 dtb=0.001 loss=700.211 sps=36844.988
+[2024-11-07 02:54:31.773797][INFO][test_dist.py:228] - iter=13 dt=0.002 dtf=0.000 dtb=0.001 loss=687.065 sps=37167.401
+[2024-11-07 02:54:31.777896][INFO][test_dist.py:228] - iter=14 dt=0.002 dtf=0.000 dtb=0.001 loss=677.442 sps=35999.450
+[2024-11-07 02:54:31.781923][INFO][test_dist.py:228] - iter=15 dt=0.002 dtf=0.000 dtb=0.001 loss=676.908 sps=36218.661
+[2024-11-07 02:54:31.785946][INFO][test_dist.py:228] - iter=16 dt=0.002 dtf=0.000 dtb=0.001 loss=665.215 sps=36220.303
+[2024-11-07 02:54:31.790002][INFO][test_dist.py:228] - iter=17 dt=0.002 dtf=0.000 dtb=0.001 loss=669.467 sps=36119.565
+[2024-11-07 02:54:31.794005][INFO][test_dist.py:228] - iter=18 dt=0.002 dtf=0.000 dtb=0.001 loss=719.421 sps=36315.021
+[2024-11-07 02:54:31.798046][INFO][test_dist.py:228] - iter=19 dt=0.002 dtf=0.000 dtb=0.001 loss=666.039 sps=35692.302
+[2024-11-07 02:54:31.802082][INFO][test_dist.py:228] - iter=20 dt=0.002 dtf=0.000 dtb=0.001 loss=637.278 sps=36324.734
+[2024-11-07 02:54:31.806193][INFO][test_dist.py:228] - iter=21 dt=0.002 dtf=0.000 dtb=0.001 loss=673.593 sps=35315.608
+[2024-11-07 02:54:31.814878][INFO][test_dist.py:228] - iter=22 dt=0.002 dtf=0.000 dtb=0.001 loss=621.756 sps=36322.459
+[2024-11-07 02:54:31.819646][INFO][test_dist.py:228] - iter=23 dt=0.002 dtf=0.001 dtb=0.001 loss=662.216 sps=29984.864
+[2024-11-07 02:54:31.823749][INFO][test_dist.py:228] - iter=24 dt=0.002 dtf=0.000 dtb=0.001 loss=617.661 sps=36691.942
+[2024-11-07 02:54:31.827816][INFO][test_dist.py:228] - iter=25 dt=0.002 dtf=0.000 dtb=0.001 loss=644.208 sps=36824.356
+[2024-11-07 02:54:31.831907][INFO][test_dist.py:228] - iter=26 dt=0.002 dtf=0.000 dtb=0.001 loss=603.792 sps=35706.062
+[2024-11-07 02:54:31.836042][INFO][test_dist.py:228] - iter=27 dt=0.002 dtf=0.000 dtb=0.001 loss=623.890 sps=35953.259
+[2024-11-07 02:54:31.840097][INFO][test_dist.py:228] - iter=28 dt=0.002 dtf=0.000 dtb=0.001 loss=602.305 sps=36080.167
+[2024-11-07 02:54:31.844168][INFO][test_dist.py:228] - iter=29 dt=0.002 dtf=0.000 dtb=0.001 loss=616.740 sps=36162.483
+[2024-11-07 02:54:31.848258][INFO][test_dist.py:228] - iter=30 dt=0.002 dtf=0.000 dtb=0.001 loss=589.460 sps=35522.202
+[2024-11-07 02:54:31.852642][INFO][test_dist.py:228] - iter=31 dt=0.002 dtf=0.000 dtb=0.002 loss=597.393 sps=31538.747
+[2024-11-07 02:54:31.856706][INFO][test_dist.py:228] - iter=32 dt=0.002 dtf=0.000 dtb=0.001 loss=586.438 sps=36861.985
+[2024-11-07 02:54:31.860741][INFO][test_dist.py:228] - iter=33 dt=0.002 dtf=0.000 dtb=0.001 loss=575.304 sps=37255.850
+[2024-11-07 02:54:31.864795][INFO][test_dist.py:228] - iter=34 dt=0.002 dtf=0.000 dtb=0.001 loss=576.047 sps=36776.900
+[2024-11-07 02:54:31.868865][INFO][test_dist.py:228] - iter=35 dt=0.002 dtf=0.000 dtb=0.001 loss=578.602 sps=35541.383
+[2024-11-07 02:54:31.872892][INFO][test_dist.py:228] - iter=36 dt=0.002 dtf=0.000 dtb=0.001 loss=581.943 sps=36032.540
+[2024-11-07 02:54:31.876925][INFO][test_dist.py:228] - iter=37 dt=0.002 dtf=0.000 dtb=0.001 loss=559.954 sps=36257.721
+[2024-11-07 02:54:31.881039][INFO][test_dist.py:228] - iter=38 dt=0.002 dtf=0.000 dtb=0.001 loss=564.968 sps=35976.137
+[2024-11-07 02:54:31.885091][INFO][test_dist.py:228] - iter=39 dt=0.002 dtf=0.000 dtb=0.001 loss=560.132 sps=36034.373
+[2024-11-07 02:54:31.889143][INFO][test_dist.py:228] - iter=40 dt=0.002 dtf=0.000 dtb=0.001 loss=550.966 sps=36122.014
+[2024-11-07 02:54:31.893732][INFO][test_dist.py:228] - iter=41 dt=0.002 dtf=0.000 dtb=0.002 loss=549.624 sps=28483.146
+[2024-11-07 02:54:31.899634][INFO][test_dist.py:228] - iter=42 dt=0.002 dtf=0.001 dtb=0.001 loss=546.063 sps=34613.324
+[2024-11-07 02:54:31.903729][INFO][test_dist.py:228] - iter=43 dt=0.002 dtf=0.000 dtb=0.001 loss=551.087 sps=37113.625
+[2024-11-07 02:54:31.907789][INFO][test_dist.py:228] - iter=44 dt=0.002 dtf=0.000 dtb=0.001 loss=546.246 sps=36486.984
+[2024-11-07 02:54:31.911793][INFO][test_dist.py:228] - iter=45 dt=0.002 dtf=0.000 dtb=0.001 loss=524.848 sps=37040.438
+[2024-11-07 02:54:31.915813][INFO][test_dist.py:228] - iter=46 dt=0.002 dtf=0.000 dtb=0.001 loss=534.800 sps=37148.374
+[2024-11-07 02:54:31.919853][INFO][test_dist.py:228] - iter=47 dt=0.002 dtf=0.000 dtb=0.001 loss=519.586 sps=35850.566
+[2024-11-07 02:54:31.923873][INFO][test_dist.py:228] - iter=48 dt=0.002 dtf=0.000 dtb=0.001 loss=527.673 sps=36002.487
+[2024-11-07 02:54:31.927955][INFO][test_dist.py:228] - iter=49 dt=0.002 dtf=0.000 dtb=0.001 loss=520.881 sps=35946.987
+[2024-11-07 02:54:31.931967][INFO][test_dist.py:228] - iter=50 dt=0.002 dtf=0.000 dtb=0.001 loss=518.902 sps=36283.891
+[2024-11-07 02:54:31.936081][INFO][test_dist.py:228] - iter=51 dt=0.002 dtf=0.000 dtb=0.001 loss=513.300 sps=35725.228
+[2024-11-07 02:54:31.940138][INFO][test_dist.py:228] - iter=52 dt=0.002 dtf=0.000 dtb=0.001 loss=510.594 sps=36454.718
+[2024-11-07 02:54:31.944239][INFO][test_dist.py:228] - iter=53 dt=0.002 dtf=0.000 dtb=0.001 loss=498.991 sps=36463.877
+[2024-11-07 02:54:31.948257][INFO][test_dist.py:228] - iter=54 dt=0.002 dtf=0.000 dtb=0.001 loss=515.478 sps=36476.390
+[2024-11-07 02:54:31.952274][INFO][test_dist.py:228] - iter=55 dt=0.002 dtf=0.000 dtb=0.001 loss=505.058 sps=36658.677
+[2024-11-07 02:54:31.956360][INFO][test_dist.py:228] - iter=56 dt=0.002 dtf=0.000 dtb=0.001 loss=491.050 sps=35958.705
+[2024-11-07 02:54:31.960410][INFO][test_dist.py:228] - iter=57 dt=0.002 dtf=0.000 dtb=0.001 loss=498.842 sps=36173.543
+[2024-11-07 02:54:31.964487][INFO][test_dist.py:228] - iter=58 dt=0.002 dtf=0.000 dtb=0.001 loss=487.925 sps=35764.645
+[2024-11-07 02:54:31.968513][INFO][test_dist.py:228] - iter=59 dt=0.002 dtf=0.000 dtb=0.001 loss=494.198 sps=36451.595
+[2024-11-07 02:54:31.972589][INFO][test_dist.py:228] - iter=60 dt=0.002 dtf=0.000 dtb=0.001 loss=482.606 sps=36583.747
+[2024-11-07 02:54:31.976599][INFO][test_dist.py:228] - iter=61 dt=0.002 dtf=0.000 dtb=0.001 loss=475.177 sps=37451.776
+[2024-11-07 02:54:31.980622][INFO][test_dist.py:228] - iter=62 dt=0.002 dtf=0.000 dtb=0.001 loss=479.255 sps=37307.618
+[2024-11-07 02:54:31.984721][INFO][test_dist.py:228] - iter=63 dt=0.002 dtf=0.000 dtb=0.001 loss=480.314 sps=36887.520
+[2024-11-07 02:54:31.988811][INFO][test_dist.py:228] - iter=64 dt=0.002 dtf=0.000 dtb=0.001 loss=471.963 sps=36828.618
+[2024-11-07 02:54:31.992855][INFO][test_dist.py:228] - iter=65 dt=0.002 dtf=0.000 dtb=0.001 loss=470.776 sps=36519.317
+[2024-11-07 02:54:31.996948][INFO][test_dist.py:228] - iter=66 dt=0.002 dtf=0.000 dtb=0.001 loss=461.129 sps=36056.768
+[2024-11-07 02:54:32.001020][INFO][test_dist.py:228] - iter=67 dt=0.002 dtf=0.000 dtb=0.001 loss=460.637 sps=36149.595
+[2024-11-07 02:54:32.005039][INFO][test_dist.py:228] - iter=68 dt=0.002 dtf=0.000 dtb=0.001 loss=453.730 sps=36254.852
+[2024-11-07 02:54:32.009054][INFO][test_dist.py:228] - iter=69 dt=0.002 dtf=0.000 dtb=0.001 loss=457.438 sps=36227.110
+[2024-11-07 02:54:32.013129][INFO][test_dist.py:228] - iter=70 dt=0.002 dtf=0.000 dtb=0.001 loss=446.450 sps=35847.135
+[2024-11-07 02:54:32.017198][INFO][test_dist.py:228] - iter=71 dt=0.002 dtf=0.000 dtb=0.001 loss=454.102 sps=36175.809
+[2024-11-07 02:54:32.021276][INFO][test_dist.py:228] - iter=72 dt=0.002 dtf=0.000 dtb=0.001 loss=444.576 sps=36270.304
+[2024-11-07 02:54:32.026391][INFO][test_dist.py:228] - iter=73 dt=0.002 dtf=0.001 dtb=0.001 loss=433.382 sps=35455.371
+[2024-11-07 02:54:32.030468][INFO][test_dist.py:228] - iter=74 dt=0.002 dtf=0.000 dtb=0.001 loss=436.220 sps=35816.176
+[2024-11-07 02:54:32.034539][INFO][test_dist.py:228] - iter=75 dt=0.002 dtf=0.000 dtb=0.001 loss=431.275 sps=36038.861
+[2024-11-07 02:54:32.038625][INFO][test_dist.py:228] - iter=76 dt=0.002 dtf=0.000 dtb=0.001 loss=424.505 sps=37053.780
+[2024-11-07 02:54:32.042684][INFO][test_dist.py:228] - iter=77 dt=0.002 dtf=0.000 dtb=0.001 loss=427.690 sps=37163.090
+[2024-11-07 02:54:32.046719][INFO][test_dist.py:228] - iter=78 dt=0.002 dtf=0.000 dtb=0.001 loss=424.319 sps=37076.370
+[2024-11-07 02:54:32.050737][INFO][test_dist.py:228] - iter=79 dt=0.002 dtf=0.000 dtb=0.001 loss=421.232 sps=36918.445
+[2024-11-07 02:54:32.054756][INFO][test_dist.py:228] - iter=80 dt=0.002 dtf=0.000 dtb=0.001 loss=418.790 sps=37122.687
+[2024-11-07 02:54:32.058791][INFO][test_dist.py:228] - iter=81 dt=0.002 dtf=0.000 dtb=0.001 loss=407.564 sps=36812.076
+[2024-11-07 02:54:32.062826][INFO][test_dist.py:228] - iter=82 dt=0.002 dtf=0.000 dtb=0.001 loss=403.360 sps=35966.205
+[2024-11-07 02:54:32.066906][INFO][test_dist.py:228] - iter=83 dt=0.002 dtf=0.000 dtb=0.001 loss=406.334 sps=36163.521
+[2024-11-07 02:54:32.070958][INFO][test_dist.py:228] - iter=84 dt=0.002 dtf=0.000 dtb=0.001 loss=394.302 sps=36336.921
+[2024-11-07 02:54:32.075009][INFO][test_dist.py:228] - iter=85 dt=0.002 dtf=0.000 dtb=0.001 loss=391.726 sps=36280.376
+[2024-11-07 02:54:32.079021][INFO][test_dist.py:228] - iter=86 dt=0.002 dtf=0.000 dtb=0.001 loss=400.620 sps=36258.553
+[2024-11-07 02:54:32.083063][INFO][test_dist.py:228] - iter=87 dt=0.002 dtf=0.000 dtb=0.001 loss=403.117 sps=36020.972
+[2024-11-07 02:54:32.087089][INFO][test_dist.py:228] - iter=88 dt=0.002 dtf=0.000 dtb=0.001 loss=390.608 sps=36279.763
+[2024-11-07 02:54:32.091145][INFO][test_dist.py:228] - iter=89 dt=0.002 dtf=0.000 dtb=0.001 loss=384.798 sps=36604.081
+[2024-11-07 02:54:32.095188][INFO][test_dist.py:228] - iter=90 dt=0.002 dtf=0.000 dtb=0.001 loss=378.518 sps=36196.922
+[2024-11-07 02:54:32.099220][INFO][test_dist.py:228] - iter=91 dt=0.002 dtf=0.000 dtb=0.001 loss=376.736 sps=36408.798
+[2024-11-07 02:54:32.103318][INFO][test_dist.py:228] - iter=92 dt=0.002 dtf=0.000 dtb=0.001 loss=377.416 sps=36157.584
+[2024-11-07 02:54:32.107372][INFO][test_dist.py:228] - iter=93 dt=0.002 dtf=0.000 dtb=0.001 loss=375.873 sps=36054.933
+[2024-11-07 02:54:32.111473][INFO][test_dist.py:228] - iter=94 dt=0.002 dtf=0.000 dtb=0.001 loss=369.196 sps=35165.899
+[2024-11-07 02:54:32.115520][INFO][test_dist.py:228] - iter=95 dt=0.002 dtf=0.000 dtb=0.001 loss=364.158 sps=36435.370
+[2024-11-07 02:54:32.119594][INFO][test_dist.py:228] - iter=96 dt=0.002 dtf=0.000 dtb=0.001 loss=364.502 sps=36576.007
+[2024-11-07 02:54:32.123613][INFO][test_dist.py:228] - iter=97 dt=0.002 dtf=0.000 dtb=0.001 loss=357.896 sps=36753.385
+[2024-11-07 02:54:32.127696][INFO][test_dist.py:228] - iter=98 dt=0.002 dtf=0.000 dtb=0.001 loss=356.989 sps=36852.625
+[2024-11-07 02:54:32.438692][INFO][test_dist.py:228] - iter=99 dt=0.309 dtf=0.195 dtb=0.113 loss=351.989 sps=207.437
+Failed to download font: IBM Plex Sans, skipping!
+Failed to download font: IBM Plex Sans Condensed, skipping!
+Failed to download font: IBM Plex Serif, skipping!
+[2024-11-07 02:54:33.078598][INFO][history.py:694] - Saving train_iter plot to: /home/tsegai/wordplay/test-dist-plots/mplot
+[2024-11-07 02:54:33.081866][INFO][history.py:698] - Saving train_iter plot to: /home/tsegai/wordplay/test-dist-plots/mplot/pngs/train_iter.png
+[2024-11-07 02:54:33.456868][INFO][history.py:698] - Saving train_iter plot to: /home/tsegai/wordplay/test-dist-plots/mplot/svgs/train_iter.svg
+[2024-11-07 02:54:33.614336][INFO][history.py:694] - Saving train_dt plot to: /home/tsegai/wordplay/test-dist-plots/mplot
+[2024-11-07 02:54:33.617508][INFO][history.py:698] - Saving train_dt plot to: /home/tsegai/wordplay/test-dist-plots/mplot/pngs/train_dt.png
+[2024-11-07 02:54:33.859055][INFO][history.py:698] - Saving train_dt plot to: /home/tsegai/wordplay/test-dist-plots/mplot/svgs/train_dt.svg
+[2024-11-07 02:54:34.007245][INFO][history.py:694] - Saving train_dtf plot to: /home/tsegai/wordplay/test-dist-plots/mplot
+[2024-11-07 02:54:34.010348][INFO][history.py:698] - Saving train_dtf plot to: /home/tsegai/wordplay/test-dist-plots/mplot/pngs/train_dtf.png
+[2024-11-07 02:54:34.272421][INFO][history.py:698] - Saving train_dtf plot to: /home/tsegai/wordplay/test-dist-plots/mplot/svgs/train_dtf.svg
+[2024-11-07 02:54:34.423133][INFO][history.py:694] - Saving train_dtb plot to: /home/tsegai/wordplay/test-dist-plots/mplot
+[2024-11-07 02:54:34.426169][INFO][history.py:698] - Saving train_dtb plot to: /home/tsegai/wordplay/test-dist-plots/mplot/pngs/train_dtb.png
+[2024-11-07 02:54:34.682693][INFO][history.py:698] - Saving train_dtb plot to: /home/tsegai/wordplay/test-dist-plots/mplot/svgs/train_dtb.svg
+[2024-11-07 02:54:34.844207][INFO][history.py:694] - Saving train_loss plot to: /home/tsegai/wordplay/test-dist-plots/mplot
+[2024-11-07 02:54:34.847923][INFO][history.py:698] - Saving train_loss plot to: /home/tsegai/wordplay/test-dist-plots/mplot/pngs/train_loss.png
+[2024-11-07 02:54:35.098315][INFO][history.py:698] - Saving train_loss plot to: /home/tsegai/wordplay/test-dist-plots/mplot/svgs/train_loss.svg
+[2024-11-07 02:54:35.248966][INFO][history.py:694] - Saving train_sps plot to: /home/tsegai/wordplay/test-dist-plots/mplot
+[2024-11-07 02:54:35.252179][INFO][history.py:698] - Saving train_sps plot to: /home/tsegai/wordplay/test-dist-plots/mplot/pngs/train_sps.png
+[2024-11-07 02:54:35.510661][INFO][history.py:698] - Saving train_sps plot to: /home/tsegai/wordplay/test-dist-plots/mplot/svgs/train_sps.svg
+                        train_iter [2024-11-07-025441]
+    ┌─────────────────────────────────────────────────────────────────────┐
+99.0┤                                                                  ▗▄▀│
+    │                                                               ▄▞▀▘  │
+    │                                                           ▗▄▀▀      │
+82.7┤                                                        ▄▞▀▘         │
+    │                                                    ▗▄▀▀             │
+    │                                                 ▄▞▀▘                │
+66.3┤                                             ▗▄▀▀                    │
+    │                                          ▄▞▀▘                       │
+    │                                      ▗▄▀▀                           │
+50.0┤                                  ▗▄▞▀▘                              │
+    │                               ▄▄▀▘                                  │
+    │                           ▗▄▞▀                                      │
+    │                        ▄▄▀▘                                         │
+33.7┤                    ▗▄▞▀                                             │
+    │                 ▄▄▀▘                                                │
+    │             ▗▄▞▀                                                    │
+17.3┤          ▄▄▀▘                                                       │
+    │      ▗▄▞▀                                                           │
+    │   ▄▄▀▘                                                              │
+ 1.0┤▄▞▀                                                                  │
+    └─┬──┬───┬───┬───┬──┬──┬──┬──┬───┬──┬──┬───┬──┬──┬───┬───┬──┬──┬────┬─┘
+      3  7  12  19  24 29 32 37 42  47 51 56  61 66 70  76  81 86 90   98
+train_iter                        train/iter
+[2024-11-07 02:54:41.807327][INFO][plot.py:220] - Appending plot to: /home/tsegai/wordplay/test-dist-plots/tplot/train_iter.txt
+text saved in /home/tsegai/wordplay/test-dist-plots/tplot/train_iter.txt
+                          train_dt [2024-11-07-025441]
+     ┌────────────────────────────────────────────────────────────────────┐
+0.309┤                                                                   ▞│
+     │                                                                   ▌│
+     │                                                                   ▌│
+0.257┤                                                                   ▌│
+     │                                                                   ▌│
+     │                                                                   ▌│
+0.206┤                                                                   ▌│
+     │                                                                   ▌│
+     │                                                                   ▌│
+0.155┤                                                                   ▌│
+     │                                                                   ▌│
+     │                                                                   ▌│
+     │                                                                   ▌│
+0.104┤                                                                   ▌│
+     │                                                                   ▌│
+     │                                                                   ▌│
+0.053┤                                                                   ▌│
+     │                                                                   ▌│
+     │                                                                   ▌│
+0.002┤▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▌│
+     └─┬─┬─┬──┬───┬───┬────┬───┬──┬──┬──┬──┬───┬──┬──┬───┬───┬──┬──┬────┬─┘
+       3 6 9 12  19  24   32  38 42 47 51 55  61 66 70  76  81 86 90   98
+train_dt                           train/iter
+[2024-11-07 02:54:41.826278][INFO][plot.py:220] - Appending plot to: /home/tsegai/wordplay/test-dist-plots/tplot/train_dt.txt
+text saved in /home/tsegai/wordplay/test-dist-plots/tplot/train_dt.txt
+                          train_dtf [2024-11-07-025441]
+     ┌────────────────────────────────────────────────────────────────────┐
+0.195┤                                                                   ▞│
+     │                                                                   ▌│
+     │                                                                   ▌│
+0.163┤                                                                   ▌│
+     │                                                                   ▌│
+     │                                                                   ▌│
+0.130┤                                                                   ▌│
+     │                                                                   ▌│
+     │                                                                   ▌│
+0.098┤                                                                   ▌│
+     │                                                                   ▌│
+     │                                                                   ▌│
+     │                                                                   ▌│
+0.065┤                                                                   ▌│
+     │                                                                   ▌│
+     │                                                                   ▌│
+0.033┤                                                                   ▌│
+     │                                                                   ▌│
+     │                                                                   ▌│
+0.000┤▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▌│
+     └─┬─┬─┬──┬───┬───┬────┬───┬──┬──┬──┬──┬───┬──┬──┬───┬───┬──┬──┬────┬─┘
+       3 6 9 12  19  24   32  38 42 47 51 55  61 66 70  76  81 86 90   98
+train_dtf                          train/iter
+[2024-11-07 02:54:41.844442][INFO][plot.py:220] - Appending plot to: /home/tsegai/wordplay/test-dist-plots/tplot/train_dtf.txt
+text saved in /home/tsegai/wordplay/test-dist-plots/tplot/train_dtf.txt
+                          train_dtb [2024-11-07-025441]
+     ┌────────────────────────────────────────────────────────────────────┐
+0.113┤                                                                   ▞│
+     │                                                                   ▌│
+     │                                                                   ▌│
+0.094┤                                                                   ▌│
+     │                                                                   ▌│
+     │                                                                   ▌│
+0.076┤                                                                   ▌│
+     │                                                                   ▌│
+     │                                                                   ▌│
+0.057┤                                                                   ▌│
+     │                                                                   ▌│
+     │                                                                   ▌│
+     │                                                                   ▌│
+0.039┤                                                                   ▌│
+     │                                                                   ▌│
+     │                                                                   ▌│
+0.020┤                                                                   ▌│
+     │                                                                   ▌│
+     │                                                                   ▌│
+0.001┤▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▌│
+     └─┬─┬─┬──┬───┬───┬────┬───┬──┬──┬──┬──┬───┬──┬──┬───┬───┬──┬──┬────┬─┘
+       3 6 9 12  19  24   32  38 42 47 51 55  61 66 70  76  81 86 90   98
+train_dtb                          train/iter
+[2024-11-07 02:54:41.862482][INFO][plot.py:220] - Appending plot to: /home/tsegai/wordplay/test-dist-plots/tplot/train_dtb.txt
+text saved in /home/tsegai/wordplay/test-dist-plots/tplot/train_dtb.txt
+                         train_loss [2024-11-07-025441]
+      ┌───────────────────────────────────────────────────────────────────┐
+2096.8┤▌                                                                  │
+      │▌                                                                  │
+      │▌                                                                  │
+1806.0┤▌                                                                  │
+      │▌                                                                  │
+      │▌                                                                  │
+1515.2┤▐                                                                  │
+      │▐                                                                  │
+      │▝▖                                                                 │
+1224.4┤ ▌                                                                 │
+      │ ▚                                                                 │
+      │ ▐                                                                 │
+      │ ▐                                                                 │
+ 933.6┤  ▚                                                                │
+      │   ▚                                                               │
+      │    ▚▄▄▄   ▗                                                       │
+ 642.8┤        ▀▀▀▘▚▞▄▚▞▄▄▖                                               │
+      │                   ▝▀▀▀▀▀▀▚▄▄▄▄▄▄▄▄ ▖                              │
+      │                                   ▀▝▀▀▀▀▀▀▀▄▄▄▄▄▄▄▄▄▖             │
+ 352.0┤                                                     ▝▀▀▀▀▀▀▀▀▀▄▄▄▄│
+      └─┬──┬──┬──┬────┬──┬──┬───┬──┬──┬──┬──┬──┬───┬───┬──┬──┬──┬──┬────┬─┘
+        3  7 12 16   24 27 32  38 42 47 51 56 61  66  73 76 81 86 90   98
+train_loss                         train/iter
+[2024-11-07 02:54:41.880729][INFO][plot.py:220] - Appending plot to: /home/tsegai/wordplay/test-dist-plots/tplot/train_loss.txt
+text saved in /home/tsegai/wordplay/test-dist-plots/tplot/train_loss.txt
+                           train_sps [2024-11-07-025441]
+       ┌──────────────────────────────────────────────────────────────────┐
+37451.8┤      ▗▄▌▗▄▄▗ ▖▗▖ ▄ ▗▞▖▗▖▗▖▗▚▞▌  ▖▄▄▖▗ ▄▀▚▄▄▄▄ ▄ ▗▀▀▄▚ ▄▄▄▄▄▄▄ ▄▄▖│
+       │  ▄▄▖▗▘ ▝▘  ▘▀▌▌▝▀ ▜▌ ▝▘▝▘▌▐  ▝▀▀▝  ▝▘▀       ▀ ▀▘    ▀       ▀  ▌│
+       │▗▞  ▝▘        ▙▘   ▐▌     ▌▌                                     ▌│
+31244.4┤▌             █     ▘     ▙▘                                     ▌│
+       │▌             ▝           ▜                                      ▌│
+       │▌                                                                ▌│
+25037.0┤▌                                                                ▌│
+       │▌                                                                ▌│
+       │▌                                                                ▌│
+18829.6┤▘                                                                ▌│
+       │                                                                 ▌│
+       │                                                                 ▌│
+       │                                                                 ▌│
+12622.2┤                                                                 ▌│
+       │                                                                 ▌│
+       │                                                                 ▌│
+ 6414.8┤                                                                 ▌│
+       │                                                                 ▌│
+       │                                                                 ▌│
+  207.4┤                                                                 ▚│
+       └─┬──┬──┬──┬────┬──┬──┬──┬──┬──┬──┬──┬───┬──┬──┬───┬──┬──┬──┬────┬─┘
+         3  7 12 16   24 28 32 37 42 46 51 55  61 66 70  76 81 86 90   98
+train_sps                           train/iter
+[2024-11-07 02:54:41.899521][INFO][plot.py:220] - Appending plot to: /home/tsegai/wordplay/test-dist-plots/tplot/train_sps.txt
+text saved in /home/tsegai/wordplay/test-dist-plots/tplot/train_sps.txt
+[2024-11-07 02:54:41.910925][INFO][test_dist.py:246] - dataset=<xarray.Dataset> Size: 5kB
+Dimensions:     (draw: 99)
+Coordinates:
+  * draw        (draw) int64 792B 0 1 2 3 4 5 6 7 8 ... 91 92 93 94 95 96 97 98
+Data variables:
+    train_iter  (draw) int64 792B 1 2 3 4 5 6 7 8 9 ... 92 93 94 95 96 97 98 99
+    train_dt    (draw) float64 792B 0.003113 0.00194 ... 0.001737 0.3085
+    train_dtf   (draw) float64 792B 0.001278 0.0005928 ... 0.0004387 0.1955
+    train_dtb   (draw) float64 792B 0.001834 0.001347 ... 0.001298 0.1131
+    train_loss  (draw) float32 396B 2.097e+03 1.57e+03 1.152e+03 ... 357.0 352.0
+    train_sps   (draw) float64 792B 2.056e+04 3.3e+04 ... 3.685e+04 207.4
+
+  _     ._   __/__   _ _  _  _ _/_   Recorded: 02:54:24  Samples:  6099
+ /_//_/// /_\ / //_// / //_'/ //     Duration: 17.085    CPU time: 27.238
+/   _/                      v5.0.0
+
+Profile at /home/tsegai/wordplay/venvs/2024-08-08/lib/python3.11/site-packages/ezpz/profile.py:101
+
+17.084 <module>  ezpz/test_dist.py:1
+└─ 17.084 main  ezpz/test_dist.py:177
+      [223 frames hidden]  ezpz, xarray, importlib, cupy, numpy,...
+
+
+[2024-11-07 02:54:42.796424][INFO][profile.py:115] - Saving pyinstrument profile output to: /home/tsegai/wordplay/ezpz_pyinstrument_profiles
+[2024-11-07 02:54:42.797245][INFO][profile.py:123] - PyInstrument profile saved (as html) to:  /home/tsegai/wordplay/ezpz_pyinstrument_profiles/pyinstrument-profile-2024-11-07-025442.html
+[2024-11-07 02:54:42.797848][INFO][profile.py:131] - PyInstrument profile saved (as text) to:  /home/tsegai/wordplay/ezpz_pyinstrument_profiles/pyinstrument-profile-2024-11-07-025442.txt
+[2024-11-07 02:54:44.298196][INFO][profile.py:143] - Finished with pyinstrument profiler. Took: 17.08483s
+[2024-11-07 02:54:44.300578][INFO][test_dist.py:269] - [0] runtime=26.014257s
+wandb: | 0.136 MB of 0.136 MB uploaded
+wandb: Run history:
+wandb:   timers/ezpz.setup_torch ▁
+wandb:            timers/imports ▁
+wandb: timers/init_to_first_step ▁
+wandb:                  train/dt ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁█
+wandb:                 train/dtb ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁█
+wandb:                 train/dtf ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁█
+wandb:                train/iter ▁▁▁▁▂▂▂▂▂▃▃▃▃▃▃▄▄▄▄▄▅▅▅▅▅▅▆▆▆▆▆▇▇▇▇▇▇███
+wandb:                train/loss █▄▃▃▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▁▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                 train/sps ▅▇▇▇█████▇██▇███▆██████████████████████▁
+wandb:
+wandb: Run summary:
+wandb:   timers/ezpz.setup_torch 3.57781
+wandb:            timers/imports 3e-05
+wandb: timers/init_to_first_step 6.5469
+wandb:                  train/dt 0.30853
+wandb:                 train/dtb 0.11307
+wandb:                 train/dtf 0.19546
+wandb:                train/iter 99
+wandb:                train/loss 351.98886
+wandb:                 train/sps 207.43693
+wandb:
+wandb: 🚀 View run silver-armadillo-2 at: https://wandb.ai/tsegai/ezpz.test_dist/runs/4846onot
+wandb: ⭐️ View project at: https://wandb.ai/tsegai/ezpz.test_dist
+wandb: Synced 5 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20241107_025423-4846onot/logs
+wandb: WARNING The new W&B backend becomes opt-out in version 0.18.0; try it out with `wandb.require("core")`! See https://wandb.me/wandb-core for more information.
+(2024-08-08) (2024-08-08/base) [tsegai@sophia-gpu-19 wordplay]$ python3 data/shakespeare_char/prepare.py
+Using HF_DATASETS_CACHE=/home/tsegai/wordplay/data/shakespeare_char/.cache/huggingface
+length of dataset in characters: 1,115,394
+all the unique characters:
+ !$&',-.3:;?ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz
+vocab size: 65
+train has 1,003,854 tokens
+val has 111,540 tokens
+(2024-08-08) (2024-08-08/base) [tsegai@sophia-gpu-19 wordplay]$ mpirun -n "${NGPUS}" python3 -m wordplay \
+    train.backend=DDP \
+    train.eval_interval=100 \
+    data=shakespeare \
+    train.dtype=bf16 \
+    model.batch_size=64 \
+    model.block_size=1024 \
+    train.max_iters=1000 \
+    train.log_interval=10 \
+    train.compile=false
+[LOG_CAT_ML] component basesmuma is not available but requested in hierarchy: basesmuma,basesmuma,ucx_p2p:basesmsocket,basesmuma,p2p
+[LOG_CAT_ML] ml_discover_hierarchy exited with error
+[LOG_CAT_ML] component basesmuma is not available but requested in hierarchy: basesmuma,basesmuma,ucx_p2p:basesmsocket,basesmuma,p2p
+[LOG_CAT_ML] ml_discover_hierarchy exited with error
+[LOG_CAT_ML] component basesmuma is not available but requested in hierarchy: basesmuma,basesmuma,ucx_p2p:basesmsocket,basesmuma,p2p
+[LOG_CAT_ML] ml_discover_hierarchy exited with error
+[LOG_CAT_ML] component basesmuma is not available but requested in hierarchy: basesmuma,basesmuma,ucx_p2p:basesmsocket,basesmuma,p2p
+[LOG_CAT_ML] ml_discover_hierarchy exited with error
+[LOG_CAT_ML] component basesmuma is not available but requested in hierarchy: basesmuma,basesmuma,ucx_p2p:basesmsocket,basesmuma,p2p
+[LOG_CAT_ML] ml_discover_hierarchy exited with error
+[LOG_CAT_ML] component basesmuma is not available but requested in hierarchy: basesmuma,basesmuma,ucx_p2p:basesmsocket,basesmuma,p2p
+[LOG_CAT_ML] ml_discover_hierarchy exited with error
+[LOG_CAT_ML] component basesmuma is not available but requested in hierarchy: basesmuma,basesmuma,ucx_p2p:basesmsocket,basesmuma,p2p
+[LOG_CAT_ML] ml_discover_hierarchy exited with error
+[LOG_CAT_ML] component basesmuma is not available but requested in hierarchy: basesmuma,basesmuma,ucx_p2p:basesmsocket,basesmuma,p2p
+[LOG_CAT_ML] ml_discover_hierarchy exited with error
+[2024-11-07 02:55:54.110456][INFO][configs.py:81] - Setting HF_DATASETS_CACHE to /home/tsegai/wordplay/.cache/huggingface/datasets
+[2024-11-07 02:55:54.891641][INFO][dist.py:92] -
+
+[dist_info]:
+  • DEVICE=cuda
+  • DEVICE_ID=cuda:0
+  • DISTRIBUTED_BACKEND=nccl
+  • GPUS_PER_NODE=8
+  • HOSTS=['sophia-gpu-19.lab.alcf.anl.gov']
+  • HOSTFILE=/var/spool/pbs/aux/36329.sophia-pbs-01.lab.alcf.anl.gov
+  • HOSTNAME=sophia-gpu-19.lab.alcf.anl.gov
+  • LOCAL_RANK=0
+  • MACHINE=Sophia
+  • NUM_NODES=1
+  • NGPUS=8
+  • NGPUS_AVAILABLE=8
+  • NODE_ID=0
+  • RANK=0
+  • SCHEDULER=LOCAL
+  • WORLD_SIZE_TOTAL=8
+  • WORLD_SIZE_IN_USE=8
+  • LAUNCH_CMD=None
+
+
+[2024-11-07 02:55:54.894493][INFO][dist.py:728] - [0/8] Using device='cuda' with backend='DDP' + 'nccl' for distributed training.
+[2024-11-07 02:55:54.896793][INFO][dist.py:348] - [device='cuda'][rank=0/7][local_rank=0/7][node=0/0]
+[2024-11-07 02:55:54.897382][WARNING][dist.py:352] - Using [8 / 8] available "cuda" devices !!
+[2024-11-07 02:55:55.800412][INFO][dist.py:348] - [device='cuda'][rank=1/7][local_rank=1/7][node=0/0]
+[2024-11-07 02:55:55.814704][INFO][dist.py:348] - [device='cuda'][rank=6/7][local_rank=6/7][node=0/0]
+[2024-11-07 02:55:55.817509][INFO][dist.py:348] - [device='cuda'][rank=5/7][local_rank=5/7][node=0/0]
+[2024-11-07 02:55:55.936247][INFO][dist.py:348] - [device='cuda'][rank=7/7][local_rank=7/7][node=0/0]
+[2024-11-07 02:55:55.954356][INFO][dist.py:348] - [device='cuda'][rank=2/7][local_rank=2/7][node=0/0]
+[2024-11-07 02:55:55.955018][INFO][dist.py:348] - [device='cuda'][rank=4/7][local_rank=4/7][node=0/0]
+[2024-11-07 02:55:55.956047][INFO][dist.py:348] - [device='cuda'][rank=3/7][local_rank=3/7][node=0/0]
+[2024-11-07 02:55:57.896576][INFO][configs.py:317] - Loading train from /home/tsegai/wordplay/data/shakespeare_char/train.bin
+[2024-11-07 02:55:57.897996][INFO][configs.py:317] - Loading val from /home/tsegai/wordplay/data/shakespeare_char/val.bin
+[2024-11-07 02:55:57.899611][INFO][configs.py:442] - Tokens per iteration: 524,288
+[2024-11-07 02:55:57.900188][INFO][configs.py:465] - Using self.ptdtype=torch.float16 on self.device_type='cuda'
+[2024-11-07 02:55:57.900636][INFO][configs.py:471] - Initializing a new model from scratch
+[2024-11-07 02:55:57.901225][INFO][dist.py:882] - Setting up wandb from rank: 0
+[2024-11-07 02:55:57.901630][INFO][dist.py:883] - Using: WB PROJECT: WordPlay
+wandb: Currently logged in as: tsegai. Use `wandb login --relogin` to force relogin
+wandb: wandb version 0.18.6 is available!  To upgrade, please run:
+wandb:  $ pip install wandb --upgrade
+wandb: Tracking run with wandb version 0.17.6
+wandb: Run data is saved locally in /home/tsegai/outputs/runs/pytorch/DDP/2024-11-07/02-55-54/wandb/run-20241107_025559-hkwss3ml
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run sunny-frost-1
+wandb: ⭐️ View project at https://wandb.ai/tsegai/WordPlay
+wandb: 🚀 View run at https://wandb.ai/tsegai/WordPlay/runs/hkwss3ml
+/home/tsegai/wordplay/src/wordplay/trainer.py:303: FutureWarning: `torch.cuda.amp.GradScaler(args...)` is deprecated. Please use `torch.amp.GradScaler('cuda', args...)` instead.
+  grad_scaler = GradScaler(
+/home/tsegai/wordplay/src/wordplay/trainer.py:303: FutureWarning: `torch.cuda.amp.GradScaler(args...)` is deprecated. Please use `torch.amp.GradScaler('cuda', args...)` instead.
+  grad_scaler = GradScaler(
+/home/tsegai/wordplay/src/wordplay/trainer.py:303: FutureWarning: `torch.cuda.amp.GradScaler(args...)` is deprecated. Please use `torch.amp.GradScaler('cuda', args...)` instead.
+  grad_scaler = GradScaler(
+[2024-11-07 02:56:00.335237][CRITICAL][trainer.py:318] - "devid='cuda:7'"
+[2024-11-07 02:56:00.335301][CRITICAL][trainer.py:318] - "devid='cuda:6'"
+[2024-11-07 02:56:00.335413][CRITICAL][trainer.py:318] - "devid='cuda:2'"
+/home/tsegai/wordplay/src/wordplay/trainer.py:303: FutureWarning: `torch.cuda.amp.GradScaler(args...)` is deprecated. Please use `torch.amp.GradScaler('cuda', args...)` instead.
+  grad_scaler = GradScaler(
+[2024-11-07 02:56:00.370859][CRITICAL][trainer.py:318] - "devid='cuda:5'"
+/home/tsegai/wordplay/src/wordplay/trainer.py:303: FutureWarning: `torch.cuda.amp.GradScaler(args...)` is deprecated. Please use `torch.amp.GradScaler('cuda', args...)` instead.
+  grad_scaler = GradScaler(
+[2024-11-07 02:56:00.392826][CRITICAL][trainer.py:318] - "devid='cuda:1'"
+/home/tsegai/wordplay/src/wordplay/trainer.py:303: FutureWarning: `torch.cuda.amp.GradScaler(args...)` is deprecated. Please use `torch.amp.GradScaler('cuda', args...)` instead.
+  grad_scaler = GradScaler(
+[2024-11-07 02:56:00.416067][CRITICAL][trainer.py:318] - "devid='cuda:4'"
+/home/tsegai/wordplay/src/wordplay/trainer.py:303: FutureWarning: `torch.cuda.amp.GradScaler(args...)` is deprecated. Please use `torch.amp.GradScaler('cuda', args...)` instead.
+  grad_scaler = GradScaler(
+[2024-11-07 02:56:00.537998][CRITICAL][trainer.py:318] - "devid='cuda:3'"
+[2024-11-07 02:56:00.587062][INFO][dist.py:908] - W&B RUN: [sunny-frost-1](https://wandb.ai/tsegai/WordPlay/runs/hkwss3ml)
+[2024-11-07 02:56:00.591267][INFO][dist.py:304] - Updating wandb.run: sunny-frost-1 config with "DIST_INFO"
+[2024-11-07 02:56:00.595705][INFO][dist.py:936] - Running on machine='Sophia'
+[2024-11-07 02:56:00.597288][WARNING][__main__.py:93] - {
+    "train": {
+        "framework": "pytorch",
+        "backend": "DDP",
+        "device": null,
+        "seed": null,
+        "port": null,
+        "ds_config_path": null,
+        "precision": null,
+        "ngpus": null,
+        "use_wandb": true,
+        "eval_interval": 100,
+        "log_interval": 10,
+        "eval_iters": 200,
+        "eval_only": false,
+        "always_save_checkpoint": false,
+        "init_from": "scratch",
+        "wandb_project": "WordPlay",
+        "max_iters": 1000,
+        "warmup_iters": 100,
+        "dtype": "bf16",
+        "compile": false
+    },
+    "model": {
+        "n_layer": 12,
+        "n_head": 12,
+        "n_embd": 768,
+        "batch_size": 64,
+        "block_size": 1024,
+        "activation": "gelu",
+        "dropout": 0.0,
+        "bias": false,
+        "vocab_size": 65
+    },
+    "data": {
+        "dataset": "shakespeare_char",
+        "out_dir": "out-shakespeare-char",
+        "root_path": null
+    },
+    "optimizer": {
+        "gas": 1,
+        "name": "AdamW",
+        "learning_rate": 0.0006,
+        "weight_decay": 0.1,
+        "beta1": 0.9,
+        "beta2": 0.95,
+        "grad_clip": 1.0,
+        "decay_lr": true,
+        "lr_decay_iters": 600000,
+        "min_lr": 6e-05
+    }
+}
+[2024-11-07 02:56:00.600595][WARNING][__main__.py:94] - Output dir: /home/tsegai/outputs/runs/pytorch/DDP/2024-11-07/02-55-54
+[2024-11-07 02:56:00.601182][INFO][trainer.py:248] - Initializing a new model from scratch
+[2024-11-07 02:56:01.750263][INFO][model.py:255] - number of parameters: 85.00M
+[2024-11-07 02:56:01.794768][INFO][trainer.py:266] - Model size: num_params=85003776
+[2024-11-07 02:56:01.798072][INFO][model.py:445] - num decayed parameter tensors: 50, with 85,771,008 parameters
+[2024-11-07 02:56:01.798702][INFO][model.py:449] - num non-decayed parameter tensors: 25, with 19,200 parameters
+[2024-11-07 02:56:02.729020][INFO][model.py:465] - using fused AdamW: True
+/home/tsegai/wordplay/src/wordplay/trainer.py:303: FutureWarning: `torch.cuda.amp.GradScaler(args...)` is deprecated. Please use `torch.amp.GradScaler('cuda', args...)` instead.
+  grad_scaler = GradScaler(
+[2024-11-07 02:56:02.730891][CRITICAL][trainer.py:318] - "devid='cuda:0'"
+[2024-11-07 02:56:02.741874][INFO][trainer.py:358] - • self.model=GPT(
+  (transformer): ModuleDict(
+    (wte): Embedding(65, 768)
+    (wpe): Embedding(1024, 768)
+    (drop): Dropout(p=0.0, inplace=False)
+    (h): ModuleList(
+      (0-11): 12 x Block(
+        (ln_1): LayerNorm()
+        (attn): CausalSelfAttention(
+          (c_attn): Linear(in_features=768, out_features=2304, bias=False)
+          (c_proj): Linear(in_features=768, out_features=768, bias=False)
+          (attn_dropout): Dropout(p=0.0, inplace=False)
+          (resid_dropout): Dropout(p=0.0, inplace=False)
+        )
+        (ln_2): LayerNorm()
+        (mlp): MLP(
+          (c_fc): Linear(in_features=768, out_features=3072, bias=False)
+          (act_fn): GELU(approximate='none')
+          (c_proj): Linear(in_features=3072, out_features=768, bias=False)
+          (dropout): Dropout(p=0.0, inplace=False)
+        )
+      )
+    )
+    (ln_f): LayerNorm()
+  )
+  (lm_head): Linear(in_features=768, out_features=65, bias=False)
+)
+[2024-11-07 02:56:02.745961][INFO][trainer.py:359] - • self.grad_scaler=<torch.cuda.amp.grad_scaler.GradScaler object at 0x14b39884c190>
+[2024-11-07 02:56:02.747051][INFO][trainer.py:360] - • self.model_engine=DistributedDataParallel(
+  (module): GPT(
+    (transformer): ModuleDict(
+      (wte): Embedding(65, 768)
+      (wpe): Embedding(1024, 768)
+      (drop): Dropout(p=0.0, inplace=False)
+      (h): ModuleList(
+        (0-11): 12 x Block(
+          (ln_1): LayerNorm()
+          (attn): CausalSelfAttention(
+            (c_attn): Linear(in_features=768, out_features=2304, bias=False)
+            (c_proj): Linear(in_features=768, out_features=768, bias=False)
+            (attn_dropout): Dropout(p=0.0, inplace=False)
+            (resid_dropout): Dropout(p=0.0, inplace=False)
+          )
+          (ln_2): LayerNorm()
+          (mlp): MLP(
+            (c_fc): Linear(in_features=768, out_features=3072, bias=False)
+            (act_fn): GELU(approximate='none')
+            (c_proj): Linear(in_features=3072, out_features=768, bias=False)
+            (dropout): Dropout(p=0.0, inplace=False)
+          )
+        )
+      )
+      (ln_f): LayerNorm()
+    )
+    (lm_head): Linear(in_features=768, out_features=65, bias=False)
+  )
+)
+[2024-11-07 02:56:02.750819][INFO][trainer.py:361] - • self.optimizer=AdamW (
+Parameter Group 0
+    amsgrad: False
+    betas: (0.9, 0.95)
+    capturable: False
+    differentiable: False
+    eps: 1e-08
+    foreach: None
+    fused: True
+    lr: 0.0006
+    maximize: False
+    weight_decay: 0.1
+
+Parameter Group 1
+    amsgrad: False
+    betas: (0.9, 0.95)
+    capturable: False
+    differentiable: False
+    eps: 1e-08
+    foreach: None
+    fused: True
+    lr: 0.0006
+    maximize: False
+    weight_decay: 0.0
+)
+[2024-11-07 02:56:02.851081][INFO][trainer.py:809] - Startup time: 8.7230
+                Training Legend
+┏━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃        abbr ┃ desc                           ┃
+┡━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
+│        step │ Current training iteration     │
+│        loss │ Loss value                     │
+│          dt │ Elapsed time per training step │
+│         dtf │ Elapsed time per forward step  │
+│         dtb │ Elapsed time per backward step │
+│         sps │ Samples per second             │
+│ sps_per_gpu │ Samples per second (per GPU)   │
+│         tps │ Tokens per second              │
+│ tps_per_gpu │ Tokens per second (per GPU)    │
+│         mfu │ Model flops utilization        │
+└─────────────┴────────────────────────────────┘
+[2024-11-07 02:56:04.641130][INFO][trainer.py:827] - ['prompt']: 'What is an LLM?'
+[2024-11-07 02:56:04.643027][INFO][trainer.py:831] - ['response']:
+
+What is an LLM?T!k-kDFt3ohookoLLhW333zmQTqkkvvvN.vO!o!Dh3kkM!Coo!iWPW!TLorioNvvFqoQokTGGakkohppio.-.vvWotoTW:krQv!!ZNkPWoZkkMKFjkPPokkxvkkaKBvDDkhoZFkr!lQBttQvoNkvvk:xx!vv!ek--PWW!!Nmkk:kkkkj:xx!!NkkBDkkkk3FMo!orzmQvkk-ooT33o:DzWFFqkhgKWFkkkko NDEG:NNo:WM!krrx:tIo-vv!k3F
+[2024-11-07 02:56:44.270864][INFO][trainer.py:892] - step=10 loss=3.14622 dt=0.279177 dtf=0.00651071 dtb=0.0151781 sps=28.6557 sps_per_gpu=3.58196 tps=1.87798e+06 tps_per_gpu=234747 mfu=46.8944
+[2024-11-07 02:56:47.246551][INFO][trainer.py:892] - step=20 loss=2.76406 dt=0.287156 dtf=0.00657645 dtb=0.0148081 sps=27.8594 sps_per_gpu=3.48243 tps=1.8258e+06 tps_per_gpu=228225 mfu=46.7641
+[2024-11-07 02:56:50.183018][INFO][trainer.py:892] - step=30 loss=2.57727 dt=0.292805 dtf=0.00623631 dtb=0.0148353 sps=27.3219 sps_per_gpu=3.41524 tps=1.79057e+06 tps_per_gpu=223821 mfu=46.5589
+[2024-11-07 02:56:53.135144][INFO][trainer.py:892] - step=40 loss=2.52278 dt=0.292911 dtf=0.00614051 dtb=0.0150312 sps=27.3121 sps_per_gpu=3.41401 tps=1.78992e+06 tps_per_gpu=223740 mfu=46.3726
+[2024-11-07 02:56:56.106817][INFO][trainer.py:892] - step=50 loss=2.48854 dt=0.294308 dtf=0.0065203 dtb=0.0151589 sps=27.1825 sps_per_gpu=3.39781 tps=1.78143e+06 tps_per_gpu=222679 mfu=46.1837
+[2024-11-07 02:56:59.080779][INFO][trainer.py:892] - step=60 loss=2.46913 dt=0.295003 dtf=0.00605908 dtb=0.0145264 sps=27.1184 sps_per_gpu=3.3898 tps=1.77723e+06 tps_per_gpu=222154 mfu=46.0032
+[2024-11-07 02:57:02.056327][INFO][trainer.py:892] - step=70 loss=2.45766 dt=0.284766 dtf=0.00626316 dtb=0.0138084 sps=28.0932 sps_per_gpu=3.51165 tps=1.84112e+06 tps_per_gpu=230140 mfu=46.0003
+[2024-11-07 02:57:05.026334][INFO][trainer.py:892] - step=80 loss=2.45632 dt=0.303494 dtf=0.00675223 dtb=0.0166635 sps=26.3597 sps_per_gpu=3.29496 tps=1.72751e+06 tps_per_gpu=215938 mfu=45.7139
+[2024-11-07 02:57:08.037697][INFO][trainer.py:892] - step=90 loss=2.46494 dt=0.312082 dtf=0.0060939 dtb=0.015323 sps=25.6343 sps_per_gpu=3.20429 tps=1.67997e+06 tps_per_gpu=209996 mfu=45.3375
+[2024-11-07 02:57:11.013959][INFO][trainer.py:892] - step=100 loss=2.43883 dt=0.307948 dtf=0.00698921 dtb=0.0220124
+ sps=25.9784 sps_per_gpu=3.2473 tps=1.70252e+06 tps_per_gpu=212815 mfu=45.0551
+[2024-11-07 02:57:12.159524][INFO][trainer.py:827] - ['prompt']: 'What is an LLM?'
+[2024-11-07 02:57:12.165530][INFO][trainer.py:831] - ['response']:
+
+What is an LLM?ay sou bagrt ige del lan fanesel the,
+TI I hangey, te he arang d s o ty onge wiglere ake.
+
+
+
+
+BELETLONET:
+The tain an ar mat se wishat o yowhare t theran or I y thealot y higopondod s s o w choul d t prthise anort arovean arend w owithen hakerasediro s dre
+[2024-11-07 02:57:49.009347][INFO][trainer.py:762] - Saving checkpoint to: /home/tsegai/outputs/runs/pytorch/DDP/2024-11-07/02-55-54
+[2024-11-07 02:57:49.011075][INFO][trainer.py:763] - Saving model to: /home/tsegai/outputs/runs/pytorch/DDP/2024-11-07/02-55-54/model.pth
+[2024-11-07 02:57:51.231295][INFO][configs.py:141] - Appending /home/tsegai/outputs/runs/pytorch/DDP/2024-11-07/02-55-54 to /home/tsegai/wordplay/src/ckpts/checkpoints.log
+[2024-11-07 02:57:54.229383][INFO][trainer.py:892] - step=110 loss=2.42974 dt=0.306441 dtf=0.00636839 dtb=0.0144967
+ sps=26.1062 sps_per_gpu=3.26327 tps=1.7109e+06 tps_per_gpu=213862 mfu=44.8218
+[2024-11-07 02:57:57.239275][INFO][trainer.py:892] - step=120 loss=2.418 dt=0.296556 dtf=0.00633638 dtb=0.0139032 sps=26.9764 sps_per_gpu=3.37204 tps=1.76792e+06 tps_per_gpu=220990 mfu=44.7543
+[2024-11-07 02:58:00.294791][INFO][trainer.py:892] - step=130 loss=2.40783 dt=0.286996 dtf=0.00690283 dtb=0.017633 sps=27.875 sps_per_gpu=3.48437 tps=1.82681e+06 tps_per_gpu=228352 mfu=44.8405
+[2024-11-07 02:58:03.286052][INFO][trainer.py:892] - step=140 loss=2.39335 dt=0.303712 dtf=0.00657996 dtb=0.0157471
+ sps=26.3408 sps_per_gpu=3.2926 tps=1.72627e+06 tps_per_gpu=215784 mfu=44.6671
+[2024-11-07 02:58:12.273483][INFO][trainer.py:892] - step=170 loss=2.27972 dt=0.3009 dtf=0.00645568 dtb=0.0150119 sps=26.5869 sps_per_gpu=3.32337 tps=1.7424e+06 tps_per_gpu=217800 mfu=44.525764
+[2024-11-07 02:58:15.284784][INFO][trainer.py:892] - step=180 loss=2.22273 dt=0.317514 dtf=0.00614734 dtb=0.0139763 sps=25.1957 sps_per_gpu=3.14946 tps=1.65123e+06 tps_per_gpu=206403 mfu=44.1964
+[2024-11-07 02:58:18.301764][INFO][trainer.py:892] - step=190 loss=2.15313 dt=0.304015 dtf=0.00675707 dtb=0.0154305 sps=26.3145 sps_per_gpu=3.28931 tps=1.72454e+06 tps_per_gpu=215568 mfu=44.0831
+[2024-11-07 02:58:21.313360][INFO][trainer.py:892] - step=200 loss=2.08352 dt=0.306311 dtf=0.00638209 dtb=0.0149717 sps=26.1172 sps_per_gpu=3.26466 tps=1.71162e+06 tps_per_gpu=213952 mfu=43.9488
+[2024-11-07 02:58:22.453283][INFO][trainer.py:827] - ['prompt']: 'What is an LLM?'
+[2024-11-07 02:58:22.455353][INFO][trainer.py:831] - ['response']:
+
+What is an LLM?
+Thich ie hou besing ot you neste beld watchs youcce.
+
+SAS:
+I shis pale: whay lith led and couring pitingee
+hat thavende is nepomst ithe thy cour wave,
+The coperre with the anides the an wou is a lien,
+wollin th wein the ith hes th hilf pro ald hats,
+Withe
+[2024-11-07 02:58:59.236802][INFO][trainer.py:762] - Saving checkpoint to: /home/tsegai/outputs/runs/pytorch/DDP/2024-11-07/02-55-54
+[2024-11-07 02:58:59.239687][INFO][trainer.py:763] - Saving model to: /home/tsegai/outputs/runs/pytorch/DDP/2024-11-07/02-55-54/model.pth
+[2024-11-07 02:59:01.909379][INFO][configs.py:141] - Appending /home/tsegai/outputs/runs/pytorch/DDP/2024-11-07/02-55-54 to /home/tsegai/wordplay/src/ckpts/checkpoints.log
+[2024-11-07 02:59:04.910869][INFO][trainer.py:892] - step=210 loss=2.01793 dt=0.313577 dtf=0.00614616 dtb=0.0152787 sps=25.5121 sps_per_gpu=3.18901 tps=1.67196e+06 tps_per_gpu=208995 mfu=43.7289
+[2024-11-07 02:59:07.895283][INFO][trainer.py:892] - step=220 loss=1.92318 dt=0.291531 dtf=0.00657888 dtb=0.0184029 sps=27.4413 sps_per_gpu=3.43017 tps=1.7984e+06 tps_per_gpu=224800 mfu=43.8467
+[2024-11-07 02:59:10.911319][INFO][trainer.py:892] - step=230 loss=1.86902 dt=0.281918 dtf=0.00623173 dtb=0.0200124 sps=28.3771 sps_per_gpu=3.54714 tps=1.85972e+06 tps_per_gpu=232465 mfu=44.1059
+[2024-11-07 02:59:13.887950][INFO][trainer.py:892] - step=240 loss=1.7966 dt=0.299191 dtf=0.0063039 dtb=0.013934 sps=26.7388 sps_per_gpu=3.34235 tps=1.75235e+06 tps_per_gpu=219044 mfu=44.0711
+[2024-11-07 02:59:16.856603][INFO][trainer.py:892] - step=250 loss=1.7406 dt=0.295407 dtf=0.00720225 dtb=0.014984 sps=27.0813 sps_per_gpu=3.38517 tps=1.7748e+06 tps_per_gpu=221850 mfu=44.0958
+[2024-11-07 02:59:19.840067][INFO][trainer.py:892] - step=260 loss=1.686 dt=0.278402 dtf=0.00626317 dtb=0.0271977 sps=28.7354 sps_per_gpu=3.59192 tps=1.8832e+06 tps_per_gpu=235400 mfu=44.3887
+[2024-11-07 02:59:22.820061][INFO][trainer.py:892] - step=270 loss=1.64727 dt=0.304386 dtf=0.00630837 dtb=0.0146269 sps=26.2824 sps_per_gpu=3.2853 tps=1.72245e+06 tps_per_gpu=215306 mfu=44.2509
+[2024-11-07 02:59:25.824653][INFO][trainer.py:892] - step=280 loss=1.58082 dt=0.298753 dtf=0.00648982 dtb=0.0153944 sps=26.7779 sps_per_gpu=3.34724 tps=1.75492e+06 tps_per_gpu=219365 mfu=44.208
+[2024-11-07 02:59:28.818722][INFO][trainer.py:892] - step=290 loss=1.54867 dt=0.310041 dtf=0.00661117 dtb=0.0155944 sps=25.803 sps_per_gpu=3.22538 tps=1.69103e+06 tps_per_gpu=211378 mfu=44.0098
+[2024-11-07 02:59:31.849407][INFO][trainer.py:892] - step=300 loss=1.52052 dt=0.297912 dtf=0.00655238 dtb=0.0158034 sps=26.8536 sps_per_gpu=3.3567 tps=1.75988e+06 tps_per_gpu=219985 mfu=44.0033
+[2024-11-07 02:59:32.988554][INFO][trainer.py:827] - ['prompt']: 'What is an LLM?'
+[2024-11-07 02:59:32.992813][INFO][trainer.py:831] - ['response']:
+
+What is an LLM?
+
+GLOUCESTER:
+Ah, shall not he flattent tell that
+thou may the meram'd fance would desing peason.
+
+GLOUCESTER:
+Get thou may marrow a king again is mine hand.
+
+GLOUCESTER:
+Hast thou do, by faith that my said me?
+
+LADY ANNE:
+Speaks, you be it, they bury is n
+[2024-11-07 03:00:09.801371][INFO][trainer.py:762] - Saving checkpoint to: /home/tsegai/outputs/runs/pytorch/DDP/2024-11-07/02-55-54
+[2024-11-07 03:00:09.803169][INFO][trainer.py:763] - Saving model to: /home/tsegai/outputs/runs/pytorch/DDP/2024-11-07/02-55-54/model.pth
+[2024-11-07 03:00:12.506184][INFO][configs.py:141] - Appending /home/tsegai/outputs/runs/pytorch/DDP/2024-11-07/02-55-54 to /home/tsegai/wordplay/src/ckpts/checkpoints.log
+[2024-11-07 03:00:15.531337][INFO][trainer.py:892] - step=310 loss=1.47153 dt=0.292505 dtf=0.00602146 dtb=0.0139183 sps=27.3499 sps_per_gpu=3.41874 tps=1.79241e+06 tps_per_gpu=224051 mfu=44.0788
+[2024-11-07 03:00:18.497522][INFO][trainer.py:892] - step=320 loss=1.4261 dt=0.297388 dtf=0.00609172 dtb=0.0133235 sps=26.9009 sps_per_gpu=3.36261 tps=1.76298e+06 tps_per_gpu=220372 mfu=44.0732
+[2024-11-07 03:00:21.494607][INFO][trainer.py:892] - step=330 loss=1.39904 dt=0.305789 dtf=0.0197205 dtb=0.0153359 sps=26.1618 sps_per_gpu=3.27023 tps=1.71454e+06 tps_per_gpu=214318 mfu=43.9472
+[2024-11-07 03:00:24.482986][INFO][trainer.py:892] - step=340 loss=1.35099 dt=0.289318 dtf=0.00616401 dtb=0.0204971 sps=27.6512 sps_per_gpu=3.4564 tps=1.81215e+06 tps_per_gpu=226519 mfu=44.0775
+[2024-11-07 03:00:27.470635][INFO][trainer.py:892] - step=350 loss=1.31328 dt=0.288349 dtf=0.00640853 dtb=0.0161212 sps=27.7442 sps_per_gpu=3.46803 tps=1.81824e+06 tps_per_gpu=227281 mfu=44.2101
+[2024-11-07 03:00:30.484471][INFO][trainer.py:892] - step=360 loss=1.28183 dt=0.295083 dtf=0.00621105 dtb=0.0143308 sps=27.111 sps_per_gpu=3.38887 tps=1.77674e+06 tps_per_gpu=222093 mfu=44.2257
+[2024-11-07 03:00:33.525803][INFO][trainer.py:892] - step=370 loss=1.23103 dt=0.301163 dtf=0.00607617 dtb=0.0150519 sps=26.5637 sps_per_gpu=3.32047 tps=1.74088e+06 tps_per_gpu=217610 mfu=44.1502
+[2024-11-07 03:00:36.525399][INFO][trainer.py:892] - step=380 loss=1.19785 dt=0.318423 dtf=0.00721393 dtb=0.0152354 sps=25.1238 sps_per_gpu=3.14047 tps=1.64651e+06 tps_per_gpu=205814 mfu=43.8467
+[2024-11-07 03:00:39.531436][INFO][trainer.py:892] - step=390 loss=1.14068 dt=0.295025 dtf=0.00608447 dtb=0.0134568 sps=27.1163 sps_per_gpu=3.38954 tps=1.77709e+06 tps_per_gpu=222137 mfu=43.8995
+[2024-11-07 03:00:42.560996][INFO][trainer.py:892] - step=400 loss=1.13386 dt=0.307578 dtf=0.00640728 dtb=0.016217 sps=26.0097 sps_per_gpu=3.25121 tps=1.70457e+06 tps_per_gpu=213071 mfu=43.766
+[2024-11-07 03:00:43.698693][INFO][trainer.py:827] - ['prompt']: 'What is an LLM?'
+[2024-11-07 03:00:43.707249][INFO][trainer.py:831] - ['response']:
+
+What is an LLM?
+
+KING RICHARD III:
+Slain, I am no gracious lost, and seclaim the king's.
+He is the tale out of his captain bid
+Hath promised his cause; and he would departed:
+Fie, fie, so he doth me of a woman's death;
+Is it is it the noveal shall shall be but said,
+And
+[2024-11-07 03:01:20.769708][INFO][trainer.py:762] - Saving checkpoint to: /home/tsegai/outputs/runs/pytorch/DDP/2024-11-07/02-55-54
+[2024-11-07 03:01:20.773801][INFO][trainer.py:763] - Saving model to: /home/tsegai/outputs/runs/pytorch/DDP/2024-11-07/02-55-54/model.pth
+[2024-11-07 03:01:23.437911][INFO][configs.py:141] - Appending /home/tsegai/outputs/runs/pytorch/DDP/2024-11-07/02-55-54 to /home/tsegai/wordplay/src/ckpts/checkpoints.log
+[2024-11-07 03:01:26.434783][INFO][trainer.py:892] - step=410 loss=1.09647 dt=0.30338 dtf=0.0060836 dtb=0.0153961 sps=26.3696 sps_per_gpu=3.2962 tps=1.72816e+06 tps_per_gpu=216020 mfu=43.7048
+[2024-11-07 03:01:29.397893][INFO][trainer.py:892] - step=420 loss=1.05492 dt=0.289078 dtf=0.00643174 dtb=0.0150759 sps=27.6742 sps_per_gpu=3.45928 tps=1.81366e+06 tps_per_gpu=226707 mfu=43.8631
+[2024-11-07 03:01:32.376963][INFO][trainer.py:892] - step=430 loss=1.0207 dt=0.303166 dtf=0.00623998 dtb=0.0173475 sps=26.3881 sps_per_gpu=3.29852 tps=1.72937e+06 tps_per_gpu=216172 mfu=43.7952
+[2024-11-07 03:01:35.370843][INFO][trainer.py:892] - step=440 loss=0.965942 dt=0.300771 dtf=0.00633498 dtb=0.0179757 sps=26.5983 sps_per_gpu=3.32479 tps=1.74315e+06 tps_per_gpu=217894 mfu=43.7684
+[2024-11-07 03:01:38.385507][INFO][trainer.py:892] - step=450 loss=0.910448 dt=0.301056 dtf=0.006308 dtb=0.0154691 sps=26.5731 sps_per_gpu=3.32164 tps=1.7415e+06 tps_per_gpu=217687 mfu=43.7402
+[2024-11-07 03:01:41.380596][INFO][trainer.py:892] - step=460 loss=0.864598 dt=0.293315 dtf=0.00617324 dtb=0.0153199 sps=27.2744 sps_per_gpu=3.4093 tps=1.78745e+06 tps_per_gpu=223432 mfu=43.8296
+[2024-11-07 03:01:44.370240][INFO][trainer.py:892] - step=470 loss=0.822331 dt=0.299451 dtf=0.00624874 dtb=0.0154614 sps=26.7156 sps_per_gpu=3.33945 tps=1.75083e+06 tps_per_gpu=218854 mfu=43.8186
+[2024-11-07 03:01:47.361740][INFO][trainer.py:892] - step=480 loss=0.754717 dt=0.303867 dtf=0.00654268 dtb=0.0177562 sps=26.3273 sps_per_gpu=3.29091 tps=1.72539e+06 tps_per_gpu=215673 mfu=43.7451
+[2024-11-07 03:01:50.357059][INFO][trainer.py:892] - step=490 loss=0.692084 dt=0.288611 dtf=0.00659195 dtb=0.0154669 sps=27.719 sps_per_gpu=3.46488 tps=1.81659e+06 tps_per_gpu=227074 mfu=43.9068
+[2024-11-07 03:01:53.329074][INFO][trainer.py:892] - step=500 loss=0.618296 dt=0.302314 dtf=0.00643226 dtb=0.0157601 sps=26.4626 sps_per_gpu=3.30782 tps=1.73425e+06 tps_per_gpu=216781 mfu=43.8467
+[2024-11-07 03:01:54.460636][INFO][trainer.py:827] - ['prompt']: 'What is an LLM?'
+[2024-11-07 03:01:54.466862][INFO][trainer.py:831] - ['response']:
+
+What is an LLM?
+
+KING RICHARD II:
+Old Gloucester, she live,
+Here chap through from you intend married.
+
+QUEEN ELIZABETH:
+And little liverent in blessingent.
+
+KING RICHARD III:
+We patient, am I king, my manor,
+Shall I have the many discontent.
+
+QUEEN ELIZABETH:
+If this no
+[2024-11-07 03:02:31.686347][INFO][trainer.py:762] - Saving checkpoint to: /home/tsegai/outputs/runs/pytorch/DDP/2024-11-07/02-55-54
+[2024-11-07 03:02:31.688152][INFO][trainer.py:763] - Saving model to: /home/tsegai/outputs/runs/pytorch/DDP/2024-11-07/02-55-54/model.pth
+[2024-11-07 03:02:34.327211][INFO][configs.py:141] - Appending /home/tsegai/outputs/runs/pytorch/DDP/2024-11-07/02-55-54 to /home/tsegai/wordplay/src/ckpts/checkpoints.log
+[2024-11-07 03:02:37.336340][INFO][trainer.py:892] - step=510 loss=0.565149 dt=0.296756 dtf=0.00644719 dtb=0.0149434 sps=26.9582 sps_per_gpu=3.36978 tps=1.76673e+06 tps_per_gpu=220842 mfu=43.8736
+[2024-11-07 03:02:40.345689][INFO][trainer.py:892] - step=520 loss=0.493104 dt=0.281342 dtf=0.00664576 dtb=0.0194538 sps=28.4352 sps_per_gpu=3.5544 tps=1.86353e+06 tps_per_gpu=232941 mfu=44.1396
+[2024-11-07 03:02:43.337732][INFO][trainer.py:892] - step=530 loss=0.398143 dt=0.313152 dtf=0.00633116 dtb=0.0142956 sps=25.5467 sps_per_gpu=3.19334 tps=1.67423e+06 tps_per_gpu=209278 mfu=43.9063
+[2024-11-07 03:02:46.346637][INFO][trainer.py:892] - step=540 loss=0.406676 dt=0.326811 dtf=0.00644338 dtb=0.0180453 sps=24.479 sps_per_gpu=3.05988 tps=1.60426e+06 tps_per_gpu=200532 mfu=43.5216
+[2024-11-07 03:02:49.352686][INFO][trainer.py:892] - step=550 loss=0.300344 dt=0.294154 dtf=0.00646278 dtb=0.0159176 sps=27.1966 sps_per_gpu=3.39958 tps=1.78236e+06 tps_per_gpu=222795 mfu=43.6202
+[2024-11-07 03:02:52.342287][INFO][trainer.py:892] - step=560 loss=0.22001 dt=0.305483 dtf=0.00764158 dtb=0.0150285 sps=26.188 sps_per_gpu=3.2735 tps=1.71626e+06 tps_per_gpu=214532 mfu=43.5438
+[2024-11-07 03:02:55.342484][INFO][trainer.py:892] - step=570 loss=0.185056 dt=0.291976 dtf=0.00622524 dtb=0.0146664 sps=27.3995 sps_per_gpu=3.42494 tps=1.79565e+06 tps_per_gpu=224457 mfu=43.6733
+[2024-11-07 03:02:58.366934][INFO][trainer.py:892] - step=580 loss=0.178864 dt=0.311415 dtf=0.00746779 dtb=0.0153667 sps=25.6892 sps_per_gpu=3.21115 tps=1.68357e+06 tps_per_gpu=210446 mfu=43.5099
+[2024-11-07 03:03:01.336645][INFO][trainer.py:892] - step=590 loss=0.146979 dt=0.299207 dtf=0.00599623 dtb=0.0143945 sps=26.7374 sps_per_gpu=3.34217 tps=1.75226e+06 tps_per_gpu=219032 mfu=43.5344
+[2024-11-07 03:03:04.365840][INFO][trainer.py:892] - step=600 loss=0.100072 dt=0.294991 dtf=0.00645293 dtb=0.0197114 sps=27.1195 sps_per_gpu=3.38994 tps=1.7773e+06 tps_per_gpu=222163 mfu=43.6191
+[2024-11-07 03:03:05.508122][INFO][trainer.py:827] - ['prompt']: 'What is an LLM?'
+[2024-11-07 03:03:05.510025][INFO][trainer.py:831] - ['response']:
+
+What is an LLM?
+
+CLAUDIO:
+Thus shall do I.
+
+ISABELLA:
+Come able abused.
+
+CLAUDIO:
+A hasful ma fit instrict me as guard me,
+Should sleep with violen the beauty heard?
+Is not it effect it. Fare you well.
+
+CLAUDIO:
+Sir, leave up to her theat.
+
+ISABELLA:
+But if more than he
+[2024-11-07 03:03:42.472553][INFO][trainer.py:762] - Saving checkpoint to: /home/tsegai/outputs/runs/pytorch/DDP/2024-11-07/02-55-54
+[2024-11-07 03:03:42.474386][INFO][trainer.py:763] - Saving model to: /home/tsegai/outputs/runs/pytorch/DDP/2024-11-07/02-55-54/model.pth
+[2024-11-07 03:03:45.102349][INFO][configs.py:141] - Appending /home/tsegai/outputs/runs/pytorch/DDP/2024-11-07/02-55-54 to /home/tsegai/wordplay/src/ckpts/checkpoints.log
+[2024-11-07 03:03:48.085978][INFO][trainer.py:892] - step=610 loss=0.0743538 dt=0.306937 dtf=0.0135892 dtb=0.0181814 sps=26.064 sps_per_gpu=3.258 tps=1.70813e+06 tps_per_gpu=213516 mfu=43.5225
+[2024-11-07 03:03:51.063841][INFO][trainer.py:892] - step=620 loss=0.154186 dt=0.280697 dtf=0.00608633 dtb=0.0209185 sps=28.5005 sps_per_gpu=3.56256 tps=1.86781e+06 tps_per_gpu=233476 mfu=43.8343
+[2024-11-07 03:03:54.031323][INFO][trainer.py:892] - step=630 loss=0.142809 dt=0.301447 dtf=0.00663179 dtb=0.0164205 sps=26.5387 sps_per_gpu=3.31733 tps=1.73924e+06 tps_per_gpu=217405 mfu=43.7938
+[2024-11-07 03:03:57.061656][INFO][trainer.py:892] - step=640 loss=0.0919511 dt=0.316191 dtf=0.00655053 dtb=0.0269611 sps=25.3012 sps_per_gpu=3.16265 tps=1.65814e+06 tps_per_gpu=207267 mfu=43.5549
+[2024-11-07 03:04:00.065040][INFO][trainer.py:892] - step=650 loss=0.0672901 dt=0.301824 dtf=0.00644749 dtb=0.015527 sps=26.5055 sps_per_gpu=3.31319 tps=1.73707e+06 tps_per_gpu=217133 mfu=43.537
+[2024-11-07 03:04:03.085897][INFO][trainer.py:892] - step=660 loss=0.0600174 dt=0.309902 dtf=0.00610354 dtb=0.0208565 sps=25.8146 sps_per_gpu=3.22683 tps=1.69179e+06 tps_per_gpu=211473 mfu=43.4078
+[2024-11-07 03:04:06.073590][INFO][trainer.py:892] - step=670 loss=0.0717902 dt=0.302224 dtf=0.00640464 dtb=0.0208066 sps=26.4704 sps_per_gpu=3.3088 tps=1.73476e+06 tps_per_gpu=216845 mfu=43.3989
+[2024-11-07 03:04:09.075318][INFO][trainer.py:892] - step=680 loss=0.122417 dt=0.308716 dtf=0.00629603 dtb=0.0139615 sps=25.9138 sps_per_gpu=3.23923 tps=1.69829e+06 tps_per_gpu=212286 mfu=43.2997
+[2024-11-07 03:04:12.054777][INFO][trainer.py:892] - step=690 loss=0.0753222 dt=0.296084 dtf=0.00640041 dtb=0.0148295 sps=27.0194 sps_per_gpu=3.37743 tps=1.77074e+06 tps_per_gpu=221343 mfu=43.3914
+[2024-11-07 03:04:15.020858][INFO][trainer.py:892] - step=700 loss=0.0587634 dt=0.303919 dtf=0.00643915 dtb=0.0215844 sps=26.3228 sps_per_gpu=3.29035 tps=1.72509e+06 tps_per_gpu=215636 mfu=43.36
+[2024-11-07 03:04:16.157439][INFO][trainer.py:827] - ['prompt']: 'What is an LLM?'
+[2024-11-07 03:04:16.158700][INFO][trainer.py:831] - ['response']:
+
+What is an LLM?
+
+RICHARD:
+The diFke time secret our good will of death:
+He is coming to come to speak; no briefly straight;
+Bid him not flood the steal of direction:
+All the other deadly souls that I should wish
+The headen blood the sky; but still some haste,
+And I will
+[2024-11-07 03:04:54.483063][INFO][trainer.py:762] - Saving checkpoint to: /home/tsegai/outputs/runs/pytorch/DDP/2024-11-07/02-55-54
+[2024-11-07 03:04:54.484924][INFO][trainer.py:763] - Saving model to: /home/tsegai/outputs/runs/pytorch/DDP/2024-11-07/02-55-54/model.pth
+[2024-11-07 03:04:57.148715][INFO][configs.py:141] - Appending /home/tsegai/outputs/runs/pytorch/DDP/2024-11-07/02-55-54 to /home/tsegai/wordplay/src/ckpts/checkpoints.log
+[2024-11-07 03:05:00.178122][INFO][trainer.py:892] - step=710 loss=0.0482437 dt=0.287093 dtf=0.00618091 dtb=0.0158435 sps=27.8656 sps_per_gpu=3.4832 tps=1.8262e+06 tps_per_gpu=228275 mfu=43.5841
+[2024-11-07 03:05:03.187158][INFO][trainer.py:892] - step=720 loss=0.0486155 dt=0.303666 dtf=0.00620411 dtb=0.0152069 sps=26.3447 sps_per_gpu=3.29309 tps=1.72653e+06 tps_per_gpu=215816 mfu=43.537
+[2024-11-07 03:05:06.186806][INFO][trainer.py:892] - step=730 loss=0.0615646 dt=0.310919 dtf=0.006401 dtb=0.0160069 sps=25.7302 sps_per_gpu=3.21627 tps=1.68625e+06 tps_per_gpu=210782 mfu=43.394
+[2024-11-07 03:05:09.206238][INFO][trainer.py:892] - step=740 loss=0.143688 dt=0.301102 dtf=0.00660498 dtb=0.0178125 sps=26.569 sps_per_gpu=3.32113 tps=1.74123e+06 tps_per_gpu=217654 mfu=43.4025
+[2024-11-07 03:05:12.221316][INFO][trainer.py:892] - step=750 loss=0.061547 dt=0.297373 dtf=0.00638484 dtb=0.0179335 sps=26.9022 sps_per_gpu=3.36278 tps=1.76306e+06 tps_per_gpu=220383 mfu=43.4648
+[2024-11-07 03:05:15.225603][INFO][trainer.py:892] - step=760 loss=0.0491619 dt=0.306199 dtf=0.00613879 dtb=0.0174785 sps=26.1268 sps_per_gpu=3.26585 tps=1.71225e+06 tps_per_gpu=214031 mfu=43.3939
+[2024-11-07 03:05:18.232535][INFO][trainer.py:892] - step=770 loss=0.0443909 dt=0.302386 dtf=0.00624472 dtb=0.0158569 sps=26.4562 sps_per_gpu=3.30703 tps=1.73383e+06 tps_per_gpu=216729 mfu=43.384
+[2024-11-07 03:05:21.253882][INFO][trainer.py:892] - step=780 loss=0.0446792 dt=0.293262 dtf=0.00676074 dtb=0.015872 sps=27.2794 sps_per_gpu=3.40992 tps=1.78778e+06 tps_per_gpu=223473 mfu=43.5098
+[2024-11-07 03:05:24.285562][INFO][trainer.py:892] - step=790 loss=0.045754 dt=0.30703 dtf=0.00684283 dtb=0.0205638 sps=26.0561 sps_per_gpu=3.25701 tps=1.70761e+06 tps_per_gpu=213451 mfu=43.4229
+[2024-11-07 03:05:27.288235][INFO][trainer.py:892] - step=800 loss=0.197572 dt=0.291973 dtf=0.00660515 dtb=0.0208654 sps=27.3998 sps_per_gpu=3.42497 tps=1.79567e+06 tps_per_gpu=224459 mfu=43.5645
+[2024-11-07 03:05:28.420556][INFO][trainer.py:827] - ['prompt']: 'What is an LLM?'
+[2024-11-07 03:05:28.421879][INFO][trainer.py:831] - ['response']:
+
+What is an LLM?
+The LO:
+Never you shall not be brief well there;
+Your horrors so proud enough to-merre:
+And so the good dead, some of your own.
+These four whose course them and not I?
+
+NORTHUMBERLAND:
+Well have you and these hours some.
+
+LORD WILLOUGHBY:
+Bareley, to the
+[2024-11-07 03:06:05.810658][INFO][trainer.py:762] - Saving checkpoint to: /home/tsegai/outputs/runs/pytorch/DDP/2024-11-07/02-55-54
+[2024-11-07 03:06:05.812602][INFO][trainer.py:763] - Saving model to: /home/tsegai/outputs/runs/pytorch/DDP/2024-11-07/02-55-54/model.pth
+[2024-11-07 03:06:08.457968][INFO][configs.py:141] - Appending /home/tsegai/outputs/runs/pytorch/DDP/2024-11-07/02-55-54 to /home/tsegai/wordplay/src/ckpts/checkpoints.log
+[2024-11-07 03:06:11.423300][INFO][trainer.py:892] - step=810 loss=0.07561 dt=0.301693 dtf=0.00630023 dtb=0.0266786 sps=26.517 sps_per_gpu=3.31462 tps=1.73782e+06 tps_per_gpu=217227 mfu=43.5475
+[2024-11-07 03:06:14.377847][INFO][trainer.py:892] - step=820 loss=0.0488712 dt=0.294131 dtf=0.00617236 dtb=0.0137139 sps=27.1988 sps_per_gpu=3.39985 tps=1.7825e+06 tps_per_gpu=222813 mfu=43.6438
+[2024-11-07 03:06:17.375620][INFO][trainer.py:892] - step=830 loss=0.0407581 dt=0.29514 dtf=0.00642575 dtb=0.0150369 sps=27.1058 sps_per_gpu=3.38823 tps=1.77641e+06 tps_per_gpu=222051 mfu=43.7152
+[2024-11-07 03:06:20.388184][INFO][trainer.py:892] - step=840 loss=0.0375165 dt=0.305947 dtf=0.00662022 dtb=0.0180527 sps=26.1483 sps_per_gpu=3.26854 tps=1.71366e+06 tps_per_gpu=214207 mfu=43.6228
+[2024-11-07 03:06:23.377386][INFO][trainer.py:892] - step=850 loss=0.0388936 dt=0.307698 dtf=0.0064928 dtb=0.0157649 sps=25.9995 sps_per_gpu=3.24994 tps=1.7039e+06 tps_per_gpu=212988 mfu=43.5153
+[2024-11-07 03:06:26.340030][INFO][trainer.py:892] - step=860 loss=0.0395976 dt=0.289687 dtf=0.00622529 dtb=0.01846 sps=27.616 sps_per_gpu=3.452 tps=1.80984e+06 tps_per_gpu=226230 mfu=43.6831
+[2024-11-07 03:06:29.326558][INFO][trainer.py:892] - step=870 loss=0.147784 dt=0.310195 dtf=0.00636869 dtb=0.0142391 sps=25.7902 sps_per_gpu=3.22378 tps=1.69019e+06 tps_per_gpu=211274 mfu=43.5353
+[2024-11-07 03:06:32.322499][INFO][trainer.py:892] - step=880 loss=0.067706 dt=0.31839 dtf=0.00602901 dtb=0.0160918 sps=25.1264 sps_per_gpu=3.1408 tps=1.64668e+06 tps_per_gpu=205835 mfu=43.2936
+[2024-11-07 03:06:35.299930][INFO][trainer.py:892] - step=890 loss=0.041164 dt=0.298513 dtf=0.00650369 dtb=0.0157607 sps=26.7995 sps_per_gpu=3.34994 tps=1.75634e+06 tps_per_gpu=219542 mfu=43.35
+[2024-11-07 03:06:38.283194][INFO][trainer.py:892] - step=900 loss=0.0363978 dt=0.295037 dtf=0.00613456 dtb=0.023666 sps=27.1153 sps_per_gpu=3.38941 tps=1.77703e+06 tps_per_gpu=222128 mfu=43.4523
+[2024-11-07 03:06:39.421500][INFO][trainer.py:827] - ['prompt']: 'What is an LLM?'
+[2024-11-07 03:06:39.423295][INFO][trainer.py:831] - ['response']:
+
+What is an LLM?
+
+CLAUDIO:
+The must unffence a fearful the weakness
+Which the regal glit on the west?
+
+Provost:
+My lord, I beseech your honour's pardon
+And the Lord Hastings of the warlike prince,
+That thou drop'st in abord, like life,
+Bend thou shalt thy dear more.
+
+CLAU
+[2024-11-07 03:07:16.444157][INFO][trainer.py:762] - Saving checkpoint to: /home/tsegai/outputs/runs/pytorch/DDP/2024-11-07/02-55-54
+[2024-11-07 03:07:16.445994][INFO][trainer.py:763] - Saving model to: /home/tsegai/outputs/runs/pytorch/DDP/2024-11-07/02-55-54/model.pth
+[2024-11-07 03:07:19.097708][INFO][configs.py:141] - Appending /home/tsegai/outputs/runs/pytorch/DDP/2024-11-07/02-55-54 to /home/tsegai/wordplay/src/ckpts/checkpoints.log
+[2024-11-07 03:07:22.084627][INFO][trainer.py:892] - step=910 loss=0.0355511 dt=0.287619 dtf=0.00618751 dtb=0.0138018 sps=27.8146 sps_per_gpu=3.47682 tps=1.82286e+06 tps_per_gpu=227857 mfu=43.6589
+[2024-11-07 03:07:25.083800][INFO][trainer.py:892] - step=920 loss=0.0357871 dt=0.308154 dtf=0.00626199 dtb=0.0221088 sps=25.961 sps_per_gpu=3.24513 tps=1.70138e+06 tps_per_gpu=212673 mfu=43.5415
+[2024-11-07 03:07:28.108908][INFO][trainer.py:892] - step=930 loss=0.036162 dt=0.309123 dtf=0.00642631 dtb=0.0164216 sps=25.8797 sps_per_gpu=3.23496 tps=1.69605e+06 tps_per_gpu=212006 mfu=43.4225
+[2024-11-07 03:07:31.123774][INFO][trainer.py:892] - step=940 loss=0.0384517 dt=0.288212 dtf=0.00647763 dtb=0.0179256 sps=27.7574 sps_per_gpu=3.46967 tps=1.81911e+06 tps_per_gpu=227388 mfu=43.6227
+[2024-11-07 03:07:34.144869][INFO][trainer.py:892] - step=950 loss=0.107361 dt=0.318268 dtf=0.0203496 dtb=0.0152992 sps=25.1361 sps_per_gpu=3.14201 tps=1.64732e+06 tps_per_gpu=205915 mfu=43.3739
+[2024-11-07 03:07:37.160717][INFO][trainer.py:892] - step=960 loss=0.0468409 dt=0.294724 dtf=0.00639106 dtb=0.0160609 sps=27.144 sps_per_gpu=3.393 tps=1.77891e+06 tps_per_gpu=222364 mfu=43.4786
+[2024-11-07 03:07:40.127832][INFO][trainer.py:892] - step=970 loss=0.0354863 dt=0.292451 dtf=0.00636973 dtb=0.0200902 sps=27.355 sps_per_gpu=3.41937 tps=1.79274e+06 tps_per_gpu=224092 mfu=43.6073
+[2024-11-07 03:07:43.140316][INFO][trainer.py:892] - step=980 loss=0.0315821 dt=0.311481 dtf=0.00649687 dtb=0.0205539 sps=25.6837 sps_per_gpu=3.21046 tps=1.68321e+06 tps_per_gpu=210401 mfu=43.4497
+[2024-11-07 03:07:46.141626][INFO][trainer.py:892] - step=990 loss=0.0311709 dt=0.303249 dtf=0.00641641 dtb=0.0160798 sps=26.3809 sps_per_gpu=3.29762 tps=1.7289e+06 tps_per_gpu=216113 mfu=43.4219
+[2024-11-07 03:07:49.208661][INFO][trainer.py:892] - step=1000 loss=0.0309836 dt=0.549664 dtf=0.0062726 dtb=0.262618 sps=14.5543 sps_per_gpu=1.81929 tps=953834 tps_per_gpu=119229 mfu=41.4615
+[2024-11-07 03:07:50.339697][INFO][__main__.py:119] - ['prompt']: 'What is an LLM?'
+[2024-11-07 03:07:50.340512][INFO][__main__.py:120] - ['response']:
+
+What is an LLM? thy fortune and here that shall
+Shall be come about in your bed. He's friend
+What shall we open in your lordship?
+
+PAULINA:
+I shall show on't.
+
+CAMILLEO:
+Do not furst, as well as well as e'er wise:
+No fair Padita, when you have winded from you
+Both like a
+[2024-11-07 03:07:50.342586][INFO][trainer.py:762] - Saving checkpoint to: /home/tsegai/outputs/runs/pytorch/DDP/2024-11-07/02-55-54
+[2024-11-07 03:07:50.343153][INFO][trainer.py:763] - Saving model to: /home/tsegai/outputs/runs/pytorch/DDP/2024-11-07/02-55-54/model.pth
+[2024-11-07 03:07:53.099571][INFO][configs.py:141] - Appending /home/tsegai/outputs/runs/pytorch/DDP/2024-11-07/02-55-54 to /home/tsegai/wordplay/src/ckpts/checkpoints.log
+wandb: - 0.237 MB of 0.237 MB uploaded
+wandb: Run history:
+wandb:                      Loss/iter ▁▁▁▁▂▂▂▂▂▃▃▃▃▃▃▄▄▄▄▄▅▅▅▅▅▅▆▆▆▆▆▇▇▇▇▇▇███
+wandb:                     Loss/lossf █▇▆▆▆▆▆▆▅▅▅▄▄▄▄▃▃▃▃▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                       Loss/mfu ██▇▆▅▅▅▅▄▄▅▅▄▄▅▄▄▄▄▄▄▄▄▄▄▄▃▃▄▄▃▄▄▄▄▃▄▄▄▁
+wandb:                     Loss/train ████▅▅▅▅▄▄▄▄▃▃▃▃▃▃▃▃▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                       Loss/val ████▃▃▃▃▂▂▂▂▁▁▁▁▁▁▁▁▂▂▂▂▅▅▅▅▆▆▆▆▅▅▅▅▇▇▇▇
+wandb:                  Timing/dt_avg ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁█
+wandb:                 Timing/dt_iter ▁▁▁▂▂▁▁▂▂▁▁▂▁▁▁▁▂▂▁▁▁▂▂▂▂▂▂▁▂▂▂▂▁▂▂▂▂▁▁█
+wandb:                  Timing/dt_tot ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁█
+wandb:                 Timing/dtb_avg ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁█
+wandb:                 Timing/dtb_tot ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁█
+wandb:                 Timing/dtf_avg ▁▁▁▂▁▂▁▁▁▁▁▁▁▁▁▁▁▁▁▂▁▁▃▁█▂▁▁▁▂▁▂▁▂▁▁▁▁▁▁
+wandb:                 Timing/dtf_tot ▁▁▁▂▁▂▁▁▁▁▁▁▁▁▁▁▁▁▁▂▁▁▃▁█▂▁▁▁▂▁▂▁▂▁▁▁▁▁▁
+wandb:                    Timing/iter ▁▁▁▁▂▂▂▂▂▃▃▃▃▃▃▄▄▄▄▄▅▅▅▅▅▅▆▆▆▆▆▇▇▇▇▇▇███
+wandb:         Timing/samples_per_sec █▇▇▇▇█▇▆▆██▇▇▇▇▇▇▇▇▇▇▆▇▇▇▆▇▇▇▇▇▇▇▇▇▇▇█▇▁
+wandb: Timing/samples_per_sec_per_gpu █▇▇▇▇█▇▆▆██▇▇▇▇▇▇▇▇▇▇▆▇▇▇▆▇▇▇▇▇▇▇▇▇▇▇█▇▁
+wandb:            Timing/startup_time ▁
+wandb:          Timing/tokens_per_sec █▇▇▇▇█▇▆▆██▇▇▇▇▇▇▇▇▇▇▆▇▇▇▆▇▇▇▇▇▇▇▇▇▇▇█▇▁
+wandb:  Timing/tokens_per_sec_per_gpu █▇▇▇▇█▇▆▆██▇▇▇▇▇▇▇▇▇▇▆▇▇▇▆▇▇▇▇▇▇▇▇▇▇▇█▇▁
+wandb:                  Training/iter ▁▁▁▁▂▂▂▂▂▃▃▃▃▃▃▄▄▄▄▄▅▅▅▅▅▅▆▆▆▆▆▇▇▇▇▇▇███
+wandb:                  Training/loss █▇▆▆▆▆▆▆▅▅▅▄▄▄▄▃▃▃▃▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:              Training/loss_tot █▇▆▆▆▆▆▆▅▅▅▄▄▄▄▃▃▃▃▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                    Training/lr ▁▃▅▆████████████████████████████████████
+wandb:                         dt_avg ▂▁▂▂▂█▁▅█▃▂▂▁▁▁▂▄▃▂▁▂▂▂▁▄▆▁▆▁▃▂▄▁▃▂▂▄▁▂▂
+wandb:                        dt_iter ▂▂▁▄▄▅▂▃▅█▃▃▂▃▃▂▂▄▅▄▄▆▄▂▄▆▃▂▄▃▄▆▄▄▄▄▅▄▄▃
+wandb:                         dt_tot ▂▁▂▂▂█▁▅█▃▂▂▁▁▁▂▄▃▂▁▂▂▂▁▄▆▁▆▁▃▂▄▁▃▂▂▄▁▂▂
+wandb:                            dtb ▂▁▂▂▂▁▁▂▃▄▂▂▁▁▁▂▄▃▂▁▂▂▁▁▅█▁▃▂▄▂▅▁▃▁▂▅▁▁▂
+wandb:                        dtb_avg ▂▁▂▂▂▁▁▂▃▄▂▂▁▁▁▂▄▃▂▁▂▂▁▁▅█▁▃▂▄▂▅▁▃▁▂▅▁▁▂
+wandb:                        dtb_tot ▂▁▂▂▂▁▁▂▃▄▂▂▁▁▁▂▄▃▂▁▂▂▁▁▅█▁▃▂▄▂▅▁▃▁▂▅▁▁▂
+wandb:                            dtf ▁▁▁▁▁█▁▄▇▁▁▁▁▁▁▂▁▁▁▁▁▁▂▁▁▁▁▅▁▁▁▁▁▁▂▁▁▁▁▁
+wandb:                        dtf_avg ▁▁▁▁▁█▁▄▇▁▁▁▁▁▁▂▁▁▁▁▁▁▂▁▁▁▁▅▁▁▁▁▁▁▂▁▁▁▁▁
+wandb:                        dtf_tot ▁▁▁▁▁█▁▄▇▁▁▁▁▁▁▂▁▁▁▁▁▁▂▁▁▁▁▅▁▁▁▁▁▁▂▁▁▁▁▁
+wandb:                           iter ▁▁▁▂▂▂▂▂▂▃▃▃▃▃▄▄▄▄▄▄▅▅▅▅▅▅▆▆▆▆▆▇▇▇▇▇▇███
+wandb:                           loss █▆▆▆▆▆▆▆▅▅▅▄▄▄▄▃▃▃▃▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                       loss_tot █▆▆▆▆▆▆▆▅▅▅▄▄▄▄▃▃▃▃▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                             lr ▁▃▅▆████████████████████████████████████
+wandb:                samples_per_sec ▇▇█▅▅▃▇▅▄▁▆▅▇▆▆▆▇▅▄▅▅▃▄▇▅▃▆▇▅▆▅▃▅▄▅▅▄▅▅▅
+wandb:        samples_per_sec_per_gpu ▇▇█▅▅▃▇▅▄▁▆▅▇▆▆▆▇▅▄▅▅▃▄▇▅▃▆▇▅▆▅▃▅▄▅▅▄▅▅▅
+wandb:                 tokens_per_sec ▇▇█▅▅▃▇▅▄▁▆▅▇▆▆▆▇▅▄▅▅▃▄▇▅▃▆▇▅▆▅▃▅▄▅▅▄▅▅▅
+wandb:         tokens_per_sec_per_gpu ▇▇█▅▅▃▇▅▄▁▆▅▇▆▆▆▇▅▄▅▅▃▄▇▅▃▆▇▅▆▅▃▅▄▅▅▄▅▅▅
+wandb:
+wandb: Run summary:
+wandb:                      Loss/iter 1000
+wandb:                     Loss/lossf 0.03098
+wandb:                       Loss/mfu 41.46148
+wandb:                     Loss/train 0.03632
+wandb:                       Loss/val 3.88609
+wandb:                  Timing/dt_avg 0.13445
+wandb:                 Timing/dt_iter 0.54966
+wandb:                  Timing/dt_tot 0.26889
+wandb:                 Timing/dtb_avg 0.26262
+wandb:                 Timing/dtb_tot 0.26262
+wandb:                 Timing/dtf_avg 0.00627
+wandb:                 Timing/dtf_tot 0.00627
+wandb:                    Timing/iter 999
+wandb:         Timing/samples_per_sec 14.55435
+wandb: Timing/samples_per_sec_per_gpu 1.81929
+wandb:            Timing/startup_time 8.72305
+wandb:          Timing/tokens_per_sec 953833.85948
+wandb:  Timing/tokens_per_sec_per_gpu 119229.23243
+wandb:                  Training/iter 999
+wandb:                  Training/loss 0.03098
+wandb:              Training/loss_tot 0.03098
+wandb:                    Training/lr 0.0006
+wandb:                         dt_avg 0.13445
+wandb:                        dt_iter 0.54966
+wandb:                         dt_tot 0.26889
+wandb:                            dtb 0.26262
+wandb:                        dtb_avg 0.26262
+wandb:                        dtb_tot 0.26262
+wandb:                            dtf 0.00627
+wandb:                        dtf_avg 0.00627
+wandb:                        dtf_tot 0.00627
+wandb:                           iter 999
+wandb:                           loss 0.03098
+wandb:                       loss_tot 0.03098
+wandb:                             lr 0.0006
+wandb:                samples_per_sec 14.55435
+wandb:        samples_per_sec_per_gpu 1.81929
+wandb:                 tokens_per_sec 953833.85948
+wandb:         tokens_per_sec_per_gpu 119229.23243
+wandb:
+wandb: 🚀 View run sunny-frost-1 at: https://wandb.ai/tsegai/WordPlay/runs/hkwss3ml
+wandb: ⭐️ View project at: https://wandb.ai/tsegai/WordPlay
+wandb: Synced 5 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20241107_025559-hkwss3ml/logs
+wandb: WARNING The new W&B backend becomes opt-out in version 0.18.0; try it out with `wandb.require("core")`! See https://wandb.me/wandb-core for more information.
+(2024-08-08) (2024-08-08/base) [tsegai@sophia-gpu-19 wordplay]$
